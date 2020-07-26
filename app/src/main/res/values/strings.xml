@@ -24,7 +24,7 @@
     <string name="qr_result_copy">Copy</string>
     <string name="qr_result_share">Share</string>
     <string name="qr_result_scan_another">Scan another</string>
-    <string name="settings_about">About</string>
+    <string name="settings_about" translatable="false">About</string>
     <string name="welcome_screen_content">Don\'t install spyware on your phone!\n\nThis QR reader does not require sneaky, strange and useless permissions just for the sake of stealing your data.\n\nThere aren\'t ads, trackers of any sort and what do you scan remains on your phone</string>
     <string name="welcome_screen_button">Start</string>
     <string name="author_label">Developed with ❤️ by Marco Gomiero</string>
