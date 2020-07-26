@@ -31,4 +31,5 @@
     <string name="menu_donate">Donate</string>
     <string name="show_on_github">Show on GitHub</string>
     <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="scan_instructions">Just frame the QR code and it will be recognized automatically</string>
 </resources>

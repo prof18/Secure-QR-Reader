@@ -32,4 +32,6 @@
     <string name="permission_required_dialog_title">Permesso necessario</string>
     <string name="permission_required_dialog_content">Mi serve il permesso di accedere alla fotocamera per scansionare il QR code</string>
     <string name="welcome_screen_content">Non installare virus sul tuo telefono!\n\nQuesto lettore di codici QR non richiede permessi strani ed inutili solo per rubare i tuoi dati.\n\nNon ci sono pubblicità, i dati non vengono tracciati e quello che scansioni rimane nel tuo cellulare.</string>
+    <string name="scan_instructions">Semplicemente inquadra il QR Code e verrà riconosciuto automaticamente.</string>
+
 </resources>

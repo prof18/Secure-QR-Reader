@@ -30,7 +30,23 @@
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:statusBarColor">@color/toolbarColor</item>
+        <item name="colorControlNormal">@android:color/white</item>
+
+        <item name="textAppearanceButton">@style/TextAppearance.SecureQRReader.Button</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/AppShapeAppearance.LargeComponent</item>
+
 
     </style>
+
+    <style name="AppTheme.WhiteStatusBar" parent="AppTheme">
+        <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+
+
 </resources>
