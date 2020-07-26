@@ -1,22 +1,21 @@
-TODO
 
 # Title
-Friends Tournament - Gestione Tornei
+QR Reader Sicuro
 
 # Short Desc
-Crea e gestisci i tuoi tornei in modo semplice
+Lettore di QR sicuro ed attento alla privacy
 
 # Long desc
 
-Friends Tournament è il perfetto strumento per gestire i tornei con i tuoi amici. Puoi usare Friends Tournament per generare tornei di videogiochi, tornei sportivi, tornei di giochi da tavolo, qualunque tipo di torneo desideri.
+Non installare virus sul tuo telefono!
 
-- Creazione Torneo
+Questo lettore di codici QR non richiede permessi strani ed inutili solo per rubare i tuoi dati. Non ci sono pubblicità, i dati non vengono tracciati e quello che scansioni rimane nel tuo cellulare. L'unico permesso richiesto è quello per usare la fotocamera
 
-Tutto quello che c'è da fare è impostare il numero di giocatori, il numero di match e il numero di giocatori che possono giocare contemporaneamente. Friends Tournament genererà i vari match e i round automaticamente.
+Scansiona, ma rimani al sicuro!
 
-- Gestione del torneo, classifica e punteggi
+L'app è open source, puoi guardare il codice: https://github.com/prof18/Secure-QR-Reader
 
-Aggiorna il punteggio di ogni giocatore e la classifica verrà generata automaticamente.
+
 
 
 
