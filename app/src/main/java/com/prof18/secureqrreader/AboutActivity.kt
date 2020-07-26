@@ -80,10 +80,6 @@ class AboutActivity : AppCompatActivity() {
         authorTextView.movementMethod = LinkMovementMethod.getInstance()
         authorTextView.text = spannableStringBuilder
 
-
-
-        //
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

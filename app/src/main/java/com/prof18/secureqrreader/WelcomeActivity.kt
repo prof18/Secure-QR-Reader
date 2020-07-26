@@ -16,20 +16,38 @@
 
 package com.prof18.secureqrreader
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 
-class StartActivity : AppCompatActivity() {
-
+class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+
+        val onBoardingDone = sharedPref.getBoolean(ONBOARDING_DONE, false)
+        if (onBoardingDone) {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            startActivity(intent)
+            return
+        }
 
         setContentView(R.layout.activity_welcome)
 
         findViewById<MaterialButton>(R.id.startButton).setOnClickListener {
+            with (sharedPref.edit()) {
+                putBoolean(ONBOARDING_DONE, true)
+                commit()
+            }
+
             val intent = Intent(this, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -37,6 +55,10 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+
+    companion object {
+        private const val ONBOARDING_DONE = "onboarding_done"
     }
 
 }
