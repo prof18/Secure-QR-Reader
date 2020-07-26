@@ -26,20 +26,17 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState)
 
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
 
         val onBoardingDone = sharedPref.getBoolean(ONBOARDING_DONE, false)
         if (onBoardingDone) {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            return
+            finish()
         }
 
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
         findViewById<MaterialButton>(R.id.startButton).setOnClickListener {
@@ -48,11 +45,9 @@ class WelcomeActivity : AppCompatActivity() {
                 commit()
             }
 
-            val intent = Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }
