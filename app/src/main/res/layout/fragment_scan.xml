@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/guideline"
-        app:srcCompat="@drawable/vector"
+        app:srcCompat="@drawable/scanner_vector"
         />
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView

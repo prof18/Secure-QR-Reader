@@ -16,7 +16,9 @@
 
 package com.prof18.secureqrreader
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -85,16 +87,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_open_source -> {
-                LibsBuilder()
-                    .withLicenseShown(true)
-                    .withActivityTitle("Open Source Libraries")
-                    .withEdgeToEdge(true)
-                    .start(this)
+            R.id.action_donate -> {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/MarcoGomiero"))
+                startActivity(browserIntent)
                 true
             }
             R.id.action_about -> {
-
+                startActivity(Intent(this, AboutActivity::class.java))
                 true
             }
             R.id.action_flash -> {

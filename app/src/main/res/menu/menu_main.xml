@@ -20,16 +20,17 @@
     tools:context="com.prof18.secureqrreader.MainActivity">
 
     <item
+        android:id="@+id/action_donate"
+        android:orderInCategory="100"
+        android:title="@string/menu_donate"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:title="@string/settings_about"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_open_source"
-        android:orderInCategory="100"
-        android:title="Open Source Licenses"
-        app:showAsAction="never" />
 
     <item
         android:icon="@drawable/ic_flash_on"
