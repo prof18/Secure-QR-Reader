@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright 2020 Marco Gomiero
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">QR Reader Secure</string>
+    <string name="camera_permission_explanation">I need to access your camera to scan the QR code</string>
+    <string name="permission_required_dialog_title">Necessary permission</string>
+    <string name="permission_required_dialog_content">I need the camera permission to let you scan the QR code</string>
+    <string name="turn_on_flash">Turn on flash</string>
+    <string name="qr_result_open">Open</string>
+    <string name="qr_result_copy">Copy</string>
+    <string name="qr_result_share">Share</string>
+    <string name="qr_result_scan_another">Scan another</string>
+    <string name="settings_about">About</string>
+    <string name="welcome_screen_content">Don\'t install spyware on your phone!\n\nThis QR reader does not require sneaky, strange and useless permissions just for the sake of stealing your data.\n\nThere aren\'t ads, trackers of any sort and what do you scan remains on your phone</string>
+    <string name="welcome_screen_button">Start</string>
+    <string name="author_label">Developed with ❤️ by Marco Gomiero</string>
+    <string name="menu_donate">Donate</string>
+    <string name="show_on_github">Show on GitHub</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="scan_instructions">Just frame the QR code and it will be recognized automatically</string>
+</resources>
