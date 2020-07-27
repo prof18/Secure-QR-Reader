@@ -86,12 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_donate -> {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/MarcoGomiero"))
-                startActivity(browserIntent)
-                true
-            }
             R.id.action_about -> {
                 startActivity(Intent(this, AboutActivity::class.java))
                 true
