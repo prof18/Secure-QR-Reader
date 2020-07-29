@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">QR Reader Secure</string>
+    <string name="app_name" translatable="false">QR Reader Secure</string>
     <string name="camera_permission_explanation">I need to access your camera to scan the QR code</string>
     <string name="permission_required_dialog_title">Necessary permission</string>
     <string name="permission_required_dialog_content">I need the camera permission to let you scan the QR code</string>
