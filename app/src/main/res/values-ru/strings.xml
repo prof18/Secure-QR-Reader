@@ -31,4 +31,5 @@
     <string name="menu_donate">Поддержать</string>
     <string name="show_on_github">Показать на GitHub</string>
     <string name="scan_instructions">Просто поместите QR-код в рамку и он будет распознан автоматически</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
 </resources>
