@@ -71,7 +71,7 @@ class AboutActivity : AppCompatActivity() {
         spannableStringBuilder.setSpan(object: ClickableSpan() {
             override fun onClick(p0: View) {
                 val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://marcogomiero.com"))
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.marcogomiero.com"))
                 startActivity(browserIntent)
             }
 
