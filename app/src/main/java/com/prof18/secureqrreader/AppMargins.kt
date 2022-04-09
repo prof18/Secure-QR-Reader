@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Marco Gomiero
+ * Copyright 2022 Marco Gomiero
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.android.tools.build:gradle:7.1.3")
-        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:10.1.0")
-    }
-}
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+package com.prof18.secureqrreader
+
+import androidx.compose.ui.unit.dp
+
+internal object AppMargins {
+    val small = 8.dp
+    val regular = 16.dp
+    val medium = 24.dp
+    val big = 32.dp
 }

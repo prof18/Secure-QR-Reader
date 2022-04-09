@@ -54,6 +54,10 @@ android {
         }
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
+
     buildFeatures { compose = true }
 }
 
@@ -71,8 +75,10 @@ dependencies {
     implementation("com.google.zxing:core:3.3.0")
     implementation("pub.devrel:easypermissions:3.0.0")
 
-    implementation("com.mikepenz:aboutlibraries-core:8.3.0")
-    implementation("com.mikepenz:aboutlibraries:8.3.0")
+    implementation("com.mikepenz:aboutlibraries-core:10.1.0")
+    implementation("com.mikepenz:aboutlibraries:10.1.0")
+
+    implementation("com.google.android.material:compose-theme-adapter:1.1.6")
 
 
     testImplementation("junit:junit:4.12")
