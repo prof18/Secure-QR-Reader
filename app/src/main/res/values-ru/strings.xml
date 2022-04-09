@@ -27,7 +27,7 @@
     <string name="settings_about">О приложении</string>
     <string name="welcome_screen_content">Не устанавливайте неизвестные приложения на ваш смартфон! Данное приложение не запрашивает никаких скрытых и ненужных разрешений для кражи ваших данных. В нем также нет рекламы, трекеров, и то, что вы сканируете, остается только на вашем смартфоне.</string>
     <string name="welcome_screen_button">Начать</string>
-    <string name="author_label">Разработано с ❤️ Marco Gomiero</string>
+    <string name="author_label">Разработано с ❤️</string>
     <string name="menu_donate">Поддержать</string>
     <string name="show_on_github">Показать на GitHub</string>
     <string name="scan_instructions">Просто поместите QR-код в рамку и он будет распознан автоматически</string>
