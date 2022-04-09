@@ -13,6 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+pluginManagement {
+    repositories {
+        google()
+        jcenter()
+        gradlePluginPortal()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
 
-include ':app'
-rootProject.name = "Secure QR Reader"
+}
+rootProject.name = "secure-qr-reader"
+
+
+include(":app")
