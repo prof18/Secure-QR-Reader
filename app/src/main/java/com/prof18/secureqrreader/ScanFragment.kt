@@ -17,12 +17,33 @@
 package com.prof18.secureqrreader
 
 import android.Manifest
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
+import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
@@ -33,25 +54,20 @@ import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
-
 class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var beepManager: BeepManager
     private lateinit var scannerView: DecoratedBarcodeView
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_scan, container, false)
-    }
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        scannerView = view.findViewById(R.id.QRScannerView)
-
-        val formats = mutableListOf(BarcodeFormat.QR_CODE)
+        val root = layoutInflater.inflate(R.layout.layout_barcode_scanner, null)
+        scannerView = root.findViewById(R.id.QRScannerView)
+        val formats = listOf(BarcodeFormat.QR_CODE)
         beepManager = BeepManager(requireActivity())
         scannerView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
         scannerView.setStatusText("")
@@ -63,10 +79,14 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     beepManager.playBeepSoundAndVibrate()
 
                     requireActivity().supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.fragmentContainer, ResultFragment.create(result.text), ResultFragment.RESULT_FRAGMENT_TAG)
-                            .addToBackStack(null)
-                            .commit()
+                        .beginTransaction()
+                        .replace(
+                            R.id.fragmentContainer,
+                            ResultFragment.create(result.text),
+                            ResultFragment.RESULT_FRAGMENT_TAG
+                        )
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
 
@@ -74,6 +94,18 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             }
         })
 
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MdcTheme {
+                    ScanScreen(root)
+                }
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         checkPermissionsAndStartQRScan()
     }
 
@@ -86,8 +118,8 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(
-                    this, getString(R.string.camera_permission_explanation),
-                    RC_CAMERA, permission
+                this, getString(R.string.camera_permission_explanation),
+                RC_CAMERA, permission
             )
         }
     }
@@ -103,17 +135,18 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(
-                requestCode,
-                permissions,
-                grantResults, this
+            requestCode,
+            permissions,
+            grantResults,
+            this,
         )
     }
 
@@ -121,7 +154,8 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.permission_required_dialog_title))
             .setMessage(getString(R.string.permission_required_dialog_content))
-            .setPositiveButton(android.R.string.ok
+            .setPositiveButton(
+                android.R.string.ok
             ) { dialog, _ ->
                 dialog.dismiss()
                 checkPermissionsAndStartQRScan()
@@ -149,5 +183,50 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     companion object {
         const val RC_CAMERA = 1
         const val SCANNER_FRAGMENT_TAG = "Scanner Fragment TAG"
+    }
+}
+
+@Composable
+private fun ScanScreen(
+    root: View
+) {
+    Column {
+        Image(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .wrapContentWidth(align = Alignment.CenterHorizontally),
+            painter = painterResource(id = R.drawable.scanner_vector),
+            contentDescription = null,
+        )
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentWidth(align = Alignment.CenterHorizontally)
+                .padding(top = AppMargins.regular)
+                .padding(horizontal = AppMargins.regular),
+            text = stringResource(id = R.string.scan_instructions),
+            textAlign = TextAlign.Center,
+        )
+        AndroidView(
+            modifier = Modifier
+                .weight(2f)
+                .padding(top = AppMargins.big, bottom = AppMargins.regular)
+                .padding(horizontal = AppMargins.regular),
+            factory = { root }
+        )
+    }
+}
+
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ScanScreenPreview() {
+    MdcTheme {
+        Surface {
+            ScanScreen(
+                root = LinearLayout(LocalContext.current)
+            )
+        }
     }
 }

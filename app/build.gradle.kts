@@ -69,8 +69,10 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-
-    implementation("com.journeyapps:zxing-android-embedded:4.1.0") /*{ transitive = false }*/
+    // Not upgrade, because otherwise will work only on api > 24
+    implementation("com.journeyapps:zxing-android-embedded:4.1.0") {
+        isTransitive = false
+    }
     // Not upgrade, because otherwise will work only on api > 24
     implementation("com.google.zxing:core:3.3.0")
     implementation("pub.devrel:easypermissions:3.0.0")
