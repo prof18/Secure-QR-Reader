@@ -16,20 +16,7 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#1565c0</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorError">#B00020</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorOnSecondary">#000000</color>
     <color name="colorOnBackground">#000000</color>
-    <color name="colorOnSurface">#FFFFFF</color>
-    <color name="colorOnError">#FFFFFF</color>
-    <color name="statusBarColor">#FFFFFF</color>
-
+    <color name="colorBackground">#FFFFFF</color>
     <color name="toolbarColor">#1565c0</color>
-
 </resources>

@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +44,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.google.zxing.client.android.BeepManager
@@ -51,6 +51,8 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
+import com.prof18.secureqrreader.style.Margins
+import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -62,7 +64,7 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         val root = layoutInflater.inflate(R.layout.layout_barcode_scanner, null)
@@ -97,7 +99,7 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MdcTheme {
+                SecureQrReaderTheme {
                     ScanScreen(root)
                 }
             }
@@ -188,7 +190,7 @@ class ScanFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
 @Composable
 private fun ScanScreen(
-    root: View
+    root: View,
 ) {
     Column {
         Image(
@@ -203,16 +205,18 @@ private fun ScanScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentWidth(align = Alignment.CenterHorizontally)
-                .padding(top = AppMargins.regular)
-                .padding(horizontal = AppMargins.regular),
+                .padding(top = Margins.regular)
+                .padding(horizontal = Margins.regular),
+            color = MaterialTheme.colors.onBackground,
             text = stringResource(id = R.string.scan_instructions),
             textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.body1,
         )
         AndroidView(
             modifier = Modifier
                 .weight(2f)
-                .padding(top = AppMargins.big, bottom = AppMargins.regular)
-                .padding(horizontal = AppMargins.regular),
+                .padding(top = Margins.big, bottom = Margins.regular)
+                .padding(horizontal = Margins.regular),
             factory = { root }
         )
     }
@@ -222,7 +226,7 @@ private fun ScanScreen(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ScanScreenPreview() {
-    MdcTheme {
+    SecureQrReaderTheme {
         Surface {
             ScanScreen(
                 root = LinearLayout(LocalContext.current)

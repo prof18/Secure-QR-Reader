@@ -41,9 +41,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.mikepenz.aboutlibraries.LibsBuilder
+import com.prof18.secureqrreader.style.Margins
+import com.prof18.secureqrreader.style.SecureQrReaderTheme
+import com.prof18.secureqrreader.style.toolbarColor
 
 class AboutActivity : AppCompatActivity() {
 
@@ -51,7 +52,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MdcTheme {
+            SecureQrReaderTheme {
                 AboutScreen(
                     showOnGithubClicked = {
                         val browserIntent = Intent(
@@ -84,7 +85,6 @@ class AboutActivity : AppCompatActivity() {
     }
 }
 
-
 @Composable
 private fun AboutScreen(
     showOnGithubClicked: () -> Unit = {},
@@ -103,7 +103,8 @@ private fun AboutScreen(
                             contentDescription = null
                         )
                     }
-                }
+                },
+                backgroundColor = toolbarColor()
             )
         }
     ) {
@@ -116,16 +117,17 @@ private fun AboutScreen(
                 item {
                     Text(
                         modifier = Modifier
-                            .padding(AppMargins.regular),
+                            .padding(Margins.regular),
+                        color = MaterialTheme.colors.onBackground,
                         text = stringResource(id = R.string.welcome_screen_content),
-                        style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
+                        style = MaterialTheme.typography.body1,
                     )
                 }
                 item {
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(AppMargins.regular),
+                            .padding(Margins.regular),
                         onClick = showOnGithubClicked
                     ) {
                         Text(stringResource(id = R.string.show_on_github))
@@ -135,8 +137,8 @@ private fun AboutScreen(
                     Button(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = AppMargins.regular)
-                            .padding(bottom = AppMargins.regular),
+                            .padding(horizontal = Margins.regular)
+                            .padding(bottom = Margins.regular),
                         onClick = licensesClicked
                     ) {
                         Text(stringResource(id = R.string.open_source_licenses))
@@ -146,7 +148,7 @@ private fun AboutScreen(
             AnnotatedClickableText(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .padding(AppMargins.big),
+                    .padding(Margins.big),
                 onTextClick = nameClicked
             )
         }
@@ -180,7 +182,9 @@ fun AnnotatedClickableText(
     ClickableText(
         modifier = modifier,
         text = annotatedText,
-        style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
+        style = MaterialTheme.typography.body1.copy(
+            color = MaterialTheme.colors.onBackground,
+        ),
         onClick = { offset ->
             annotatedText.getStringAnnotations(
                 tag = "URL",
@@ -197,7 +201,7 @@ fun AnnotatedClickableText(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AboutScreenPreview() {
-    MdcTheme {
+    SecureQrReaderTheme {
         Surface {
             AboutScreen()
         }

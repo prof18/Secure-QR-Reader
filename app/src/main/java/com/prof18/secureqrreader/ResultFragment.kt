@@ -39,17 +39,17 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.google.android.material.composethemeadapter.MdcTheme
+import com.prof18.secureqrreader.style.Margins
+import com.prof18.secureqrreader.style.SecureQrReaderTheme
 
 class ResultFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         val qrResult: String? = arguments?.getString(QR_RESULT)
@@ -57,7 +57,7 @@ class ResultFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MdcTheme {
+                SecureQrReaderTheme {
                     ResultScreen(
                         scanResult = qrResult,
                         isUrl = isUrl(qrResult),
@@ -84,7 +84,7 @@ class ResultFragment : Fragment() {
 
     private fun copyToClipboard(qrResult: String?) {
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE)
-                as ClipboardManager
+            as ClipboardManager
         val clip: ClipData = ClipData.newPlainText("QR Result", qrResult)
         clipboard.setPrimaryClip(clip)
     }
@@ -131,7 +131,7 @@ private fun ResultScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(AppMargins.regular),
+            .padding(Margins.regular),
         contentAlignment = Alignment.Center,
     ) {
         if (scanResult == null) {
@@ -140,12 +140,13 @@ private fun ResultScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = "Sorry, something unexpected happened. Please retry", // TODO: localise
-                    style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onBackground,
                 )
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = AppMargins.big),
+                        .padding(top = Margins.big),
                     onClick = onScanAnotherButtonClick
                 ) {
                     Text(
@@ -160,12 +161,13 @@ private fun ResultScreen(
                         .fillMaxWidth()
                         .wrapContentWidth(align = Alignment.CenterHorizontally),
                     text = scanResult,
-                    style = MaterialTheme.typography.body1.copy(fontSize = 18.sp),
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.body1,
                 )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = AppMargins.big),
+                        .padding(top = Margins.big),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
@@ -197,7 +199,7 @@ private fun ResultScreen(
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = AppMargins.big),
+                        .padding(top = Margins.big),
                     onClick = onScanAnotherButtonClick
                 ) {
                     Text(
@@ -213,7 +215,7 @@ private fun ResultScreen(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ResultScreenScanResultNullPreview() {
-    MdcTheme {
+    SecureQrReaderTheme {
         Surface {
             ResultScreen(
                 scanResult = null
@@ -226,7 +228,7 @@ private fun ResultScreenScanResultNullPreview() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ResultScreenScanResultPreview() {
-    MdcTheme {
+    SecureQrReaderTheme {
         Surface {
             ResultScreen(
                 scanResult = "https://www.marcogomiero.com",
@@ -240,7 +242,7 @@ private fun ResultScreenScanResultPreview() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ResultScreenScanResultNotUrlPreview() {
-    MdcTheme {
+    SecureQrReaderTheme {
         Surface {
             ResultScreen(
                 scanResult = "Marco Gomiero",
