@@ -20,8 +20,4 @@
         <item name="android:statusBarColor">@color/toolbarColor</item>
     </style>
 
-    <style name="AppTheme.WhiteStatusBar" parent="AppTheme">
-        <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:windowLightStatusBar">false</item>
-    </style>
 </resources>

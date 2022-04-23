@@ -1,112 +1,128 @@
-/*
- * Copyright 2020 Marco Gomiero
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.prof18.secureqrreader
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.mikepenz.aboutlibraries.LibsBuilder
+import com.prof18.secureqrreader.R.string
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var scanFragment: ScanFragment
-    private var flashActive = false
-    private var hideFlashMenu = false
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val preferencesWrapper = PreferencesWrapper(this)
+
+        var dismissSplashScreen = false
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { !dismissSplashScreen }
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-        scanFragment = ScanFragment()
+        setContent {
+            val navController = rememberNavController()
+            val scope = rememberCoroutineScope()
+            val context = LocalContext.current
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, scanFragment, ScanFragment.SCANNER_FRAGMENT_TAG)
-                .commit()
+            var scanResult by remember {
+                mutableStateOf<String?>(null)
+            }
 
-        supportFragmentManager.registerFragmentLifecycleCallbacks(object: FragmentManager.FragmentLifecycleCallbacks() {
-            override fun onFragmentResumed(fm: FragmentManager, fragment: Fragment) {
-                super.onFragmentResumed(fm, fragment)
+            LaunchedEffect(Unit) {
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    dismissSplashScreen = destination.route != Screen.Splash.name
+                }
+            }
 
-                if (fragment is ScanFragment) {
-                    hideFlashMenu(false)
-                } else if (fragment is ResultFragment) {
-                    hideFlashMenu(true)
+            NavHost(navController = navController, startDestination = Screen.Splash.name) {
+
+                composable(Screen.Splash.name) {
+                    SplashScreen(preferencesWrapper) { isOnboardingRequired ->
+                        if (isOnboardingRequired) {
+                            navController.navigate(Screen.WelcomeScreen.name) {
+                                popUpTo(Screen.Splash.name) {
+                                    inclusive = true
+                                }
+                            }
+                        } else {
+                            navController.navigate(Screen.ScanScreen.name) {
+                                popUpTo(Screen.Splash.name) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    }
                 }
 
-            }
-        }, true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        if (!hasFlash()) {
-            menu.findItem(R.id.action_flash).isVisible = false
-        }
-
-        menu.findItem(R.id.action_flash).isVisible = !hideFlashMenu
-
-        if (flashActive) {
-            menu.findItem(R.id.action_flash).icon = ContextCompat.getDrawable(this, R.drawable.ic_flash_off)
-        } else {
-            menu.findItem(R.id.action_flash).icon = ContextCompat.getDrawable(this, R.drawable.ic_flash_on)
-        }
-
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    private fun hasFlash(): Boolean {
-        return applicationContext.packageManager
-            .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_about -> {
-                startActivity(Intent(this, AboutActivity::class.java))
-                true
-            }
-            R.id.action_flash -> {
-                if (flashActive) {
-                    flashActive = false
-                    scanFragment.enableFlash(false)
-                } else {
-                    flashActive = true
-                    scanFragment.enableFlash(true)
+                composable(Screen.WelcomeScreen.name) {
+                    WelcomeScreen(
+                        onStartClick = {
+                            scope.launch {
+                                preferencesWrapper.setOnboardingDone()
+                            }
+                            navController.navigate(Screen.ScanScreen.name) {
+                                popUpTo(Screen.WelcomeScreen.name) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    )
                 }
-                invalidateOptionsMenu()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
-    fun hideFlashMenu(hide: Boolean) {
-        hideFlashMenu = hide
-        invalidateOptionsMenu()
+                composable(Screen.ScanScreen.name) {
+                    ScanScreen(
+                        onResultFound = { result ->
+                            scanResult = result
+                            navController.navigate(Screen.ResultScreen.name)
+                        },
+                        onAboutClick = {
+                            navController.navigate(Screen.AboutScreen.name)
+                        }
+                    )
+                }
+
+                composable(Screen.ResultScreen.name) {
+                    ResultScreen(
+                        scanResult = scanResult,
+                        isUrl = isUrl(scanResult),
+                        onOpenButtonClick = { openUrl(scanResult, context) },
+                        onCopyButtonClick = { copyToClipboard(scanResult, context) },
+                        onShareButtonClick = { shareResult(scanResult, context) },
+                        onScanAnotherButtonClick = { navController.popBackStack() },
+                        onAboutClick = { navController.navigate(Screen.AboutScreen.name) }
+                    )
+                }
+
+                composable(Screen.AboutScreen.name) {
+                    AboutScreen(
+                        showOnGithubClicked = { openUrl("https://www.marcogomiero.com", context) },
+                        licensesClicked = {
+                            // TODO: move to compose support?
+                            LibsBuilder()
+                                .withLicenseShown(true)
+                                .withAboutAppName(context.getString(string.app_name))
+                                .withActivityTitle("Open Source Libraries")
+                                .withAboutDescription("<a href='https://it.freepik.com/foto-vettori-gratuito/tecnologia'>Vectors from freepik - it.freepik.com</a>")
+                                .withEdgeToEdge(true)
+                                .start(context)
+                        },
+                        nameClicked = { openUrl("https://www.marcogomiero.com", context) },
+                        onBackPressed = { navController.popBackStack() }
+                    )
+                }
+            }
+
+        }
     }
 }

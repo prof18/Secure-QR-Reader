@@ -61,8 +61,17 @@ android {
     buildFeatures { compose = true }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi"
+        jvmTarget = libs.versions.java.get()
+    }
+}
+
 dependencies {
     implementation(libs.bundles.compose)
+    implementation(libs.androidx.datastore.preference)
+    implementation(libs.androidx.core.splashscreen)
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("com.google.android.material:material:1.1.0")
@@ -70,20 +79,14 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     // Not upgrade, because otherwise will work only on api > 24
-    implementation("com.journeyapps:zxing-android-embedded:4.1.0") {
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0") {
         isTransitive = false
     }
     // Not upgrade, because otherwise will work only on api > 24
     implementation("com.google.zxing:core:3.3.0")
-    implementation("pub.devrel:easypermissions:3.0.0")
 
     implementation("com.mikepenz:aboutlibraries-core:10.1.0")
     implementation("com.mikepenz:aboutlibraries:10.1.0")
-
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
-
 }
 
 

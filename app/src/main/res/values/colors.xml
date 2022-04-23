@@ -18,5 +18,4 @@
 <resources>
     <color name="colorOnBackground">#000000</color>
     <color name="colorBackground">#FFFFFF</color>
-    <color name="toolbarColor">#1565c0</color>
 </resources>

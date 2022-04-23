@@ -16,21 +16,17 @@
 
 package com.prof18.secureqrreader
 
-import android.content.Intent
 import android.content.res.Configuration
-import android.net.Uri
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,72 +37,19 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.mikepenz.aboutlibraries.LibsBuilder
+import com.prof18.secureqrreader.components.AboutScreenScaffold
 import com.prof18.secureqrreader.style.Margins
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
-import com.prof18.secureqrreader.style.toolbarColor
-
-class AboutActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            SecureQrReaderTheme {
-                AboutScreen(
-                    showOnGithubClicked = {
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://github.com/prof18/Secure-QR-Reader"),
-                        )
-                        startActivity(browserIntent)
-                    },
-                    licensesClicked = {
-                        // TODO: move to compose support?
-                        LibsBuilder()
-                            .withLicenseShown(true)
-                            .withAboutAppName(getString(R.string.app_name))
-                            .withActivityTitle("Open Source Libraries")
-                            .withAboutDescription("<a href='https://it.freepik.com/foto-vettori-gratuito/tecnologia'>Vectors from freepik - it.freepik.com</a>")
-                            .withEdgeToEdge(true)
-                            .start(this)
-                    },
-                    nameClicked = {
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://www.marcogomiero.com"),
-                        )
-                        startActivity(browserIntent)
-                    },
-                    onBackPressed = { onBackPressed() }
-                )
-            }
-        }
-    }
-}
 
 @Composable
-private fun AboutScreen(
+fun AboutScreen(
     showOnGithubClicked: () -> Unit = {},
     licensesClicked: () -> Unit = {},
     nameClicked: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("About") }, // TODO: localize
-                navigationIcon = {
-                    IconButton(onClick = onBackPressed) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = null
-                        )
-                    }
-                },
-                backgroundColor = toolbarColor()
-            )
-        }
+    AboutScreenScaffold(
+        onBackClick = onBackPressed,
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

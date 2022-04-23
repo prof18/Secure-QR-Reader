@@ -16,6 +16,10 @@ kotlin = "1.6.10"
 navCompose = "2.5.0-alpha03"
 timber = "5.0.1"
 viewModelKTX = "2.4.1"
+datastore = "1.0.0"
+splashscreen = "1.0.0-beta02"
+accompanist-permissions = "0.24.7-alpha"
+
 
 [libraries]
 androidx-activity-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -29,10 +33,13 @@ androidx-compose-ui-uiTest = { module = "androidx.compose.ui:ui-test-junit4", ve
 androidx-compose-ui-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 androidx-lifecycle-viewModelKTX = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "viewModelKTX" }
 androidx-navigation-navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navCompose" }
+androidx-datastore-preference = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 jake-timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
 
 [bundles]
 compose = [
@@ -46,6 +53,7 @@ compose = [
     "androidx-compose-ui-uiTest",
     "androidx-compose-ui-uiTooling",
     "androidx-navigation-navigationCompose",
+    "accompanist-permissions"
 ]
 
 [plugins]
