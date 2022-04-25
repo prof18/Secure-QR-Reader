@@ -3,6 +3,9 @@ package com.prof18.secureqrreader
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,10 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.animation.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val navController = rememberNavController()
+            val navController = rememberAnimatedNavController()
             val scope = rememberCoroutineScope()
             val context = LocalContext.current
             val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -69,7 +72,14 @@ class MainActivity : ComponentActivity() {
                     actualBackgroundColor = statusBarColor
                 )
 
-                NavHost(navController = navController, startDestination = Screen.Splash.name) {
+                AnimatedNavHost(
+                    navController,
+                    startDestination = Screen.Splash.name,
+                    enterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+                    exitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.Start) },
+                    popEnterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.End) },
+                    popExitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }
+                ) {
 
                     composable(Screen.Splash.name) {
                         SplashScreen(preferencesWrapper) { isOnboardingRequired ->
@@ -154,7 +164,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 internal fun SetupTransparentSystemUi(
-    systemUiController: SystemUiController = rememberSystemUiController(),
+    systemUiController: SystemUiController,
     actualBackgroundColor: Color,
 ) {
     val minLuminanceForDarkIcons = .5f

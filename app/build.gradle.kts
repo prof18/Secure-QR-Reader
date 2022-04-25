@@ -63,13 +63,14 @@ android {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi"
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi" + "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
         jvmTarget = libs.versions.java.get()
     }
 }
 
 dependencies {
     implementation(libs.bundles.compose)
+    implementation(libs.bundles.accompanist)
     implementation(libs.androidx.datastore.preference)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.android.material)
