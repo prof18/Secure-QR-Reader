@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 Marco Gomiero
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.prof18.secureqrreader.components
 
 import androidx.compose.foundation.layout.Box
@@ -27,12 +43,14 @@ fun TopAppBarDropdownMenu(
         Modifier
             .wrapContentSize(Alignment.TopEnd)
     ) {
-        IconButton(onClick = {
-            expanded.value = true
-        }) {
+        IconButton(
+            onClick = {
+                expanded.value = true
+            }
+        ) {
             Icon(
                 Filled.MoreVert,
-                contentDescription = null // TODO: localize?
+                contentDescription = null
             )
         }
     }
@@ -41,12 +59,14 @@ fun TopAppBarDropdownMenu(
         expanded = expanded.value,
         onDismissRequest = { expanded.value = false },
     ) {
-        DropdownMenuItem(onClick = {
-            expanded.value = false // 3
-            onAboutClick()
-        }) {
+        DropdownMenuItem(
+            onClick = {
+                expanded.value = false
+                onAboutClick()
+            }
+        ) {
             Text(
-                stringResource(id = string.settings_about) // TODO: style
+                stringResource(id = string.settings_about)
             )
         }
     }

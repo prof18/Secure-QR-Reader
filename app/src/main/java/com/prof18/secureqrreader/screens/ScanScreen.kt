@@ -1,4 +1,20 @@
-package com.prof18.secureqrreader
+/*
+ * Copyright 2022 Marco Gomiero
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.prof18.secureqrreader.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -35,10 +51,13 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CompoundBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
+import com.prof18.secureqrreader.R
 import com.prof18.secureqrreader.R.drawable
 import com.prof18.secureqrreader.R.string
 import com.prof18.secureqrreader.components.ScanScreenScaffold
 import com.prof18.secureqrreader.components.ScanScreenWithoutCameraScaffold
+import com.prof18.secureqrreader.getActivity
+import com.prof18.secureqrreader.goToAppSettings
 import com.prof18.secureqrreader.style.Margins
 
 @Composable
@@ -169,7 +188,7 @@ fun ScanScreen(
                                 goToAppSettings(context)
                             }
                         ) {
-                            Text("Request permission") // TODO: localize
+                            Text(stringResource(string.request_permission))
                         }
                     }
                 }

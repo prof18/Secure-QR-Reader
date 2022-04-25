@@ -26,7 +26,7 @@ android {
     compileSdk = 32
     defaultConfig {
         applicationId = "com.prof18.secureqrreader"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 32
         versionCode = /*getVersionCode()*/ 10002 // TODO: maybe change it
         versionName = getVersionName()

@@ -1,5 +1,22 @@
+/*
+ * Copyright 2022 Marco Gomiero
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.prof18.secureqrreader.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -16,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.prof18.secureqrreader.R
+import com.prof18.secureqrreader.R.string
 import com.prof18.secureqrreader.hasFlash
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import com.prof18.secureqrreader.style.toolbarColor
@@ -23,7 +41,7 @@ import com.prof18.secureqrreader.style.toolbarColor
 @Composable
 fun AboutScreenScaffold(
     onBackClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
     showBackButton = true,
     showToolbarActions = false,
@@ -40,7 +58,7 @@ fun ScanScreenScaffold(
     setFlashOn: () -> Unit,
     setFlashOff: () -> Unit,
     onAboutClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
     showBackButton = false,
     showToolbarActions = true,
@@ -55,7 +73,7 @@ fun ScanScreenScaffold(
 @Composable
 fun ScanScreenWithoutCameraScaffold(
     onAboutClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
     showBackButton = false,
     showToolbarActions = true,
@@ -71,7 +89,7 @@ fun ScanScreenWithoutCameraScaffold(
 fun ResultScreenScaffold(
     onBackClick: () -> Unit,
     onAboutClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
     showBackButton = true,
     showToolbarActions = true,
@@ -86,7 +104,7 @@ fun ResultScreenScaffold(
 @Composable
 fun LibrariesScreenScaffold(
     onBackClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
     title = stringResource(id = R.string.open_source_licenses),
     showBackButton = true,
@@ -109,7 +127,7 @@ private fun AppScaffold(
     setFlashOff: () -> Unit,
     onAboutClick: () -> Unit,
     onBackClick: () -> Unit,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -117,69 +135,67 @@ private fun AppScaffold(
         mutableStateOf(false)
     }
 
-    SecureQrReaderTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = title,
-                            color = MaterialTheme.colors.onPrimary,
-                            style = MaterialTheme.typography.h6,
-                        )
-                    },
-                    backgroundColor = toolbarColor(),
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    navigationIcon = if (showBackButton) {
-                        {
-                            IconButton(onClick = onBackClick) {
-                                Icon(
-                                    imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = null
-                                )
-                            }
-                        }
-                    } else {
-                        null
-                    },
-                    actions = {
-                        if (showToolbarActions) {
-                            if (showFlashSelector && hasFlash(context)) {
-                                IconButton(
-                                    onClick = {
-                                        if (isFlashActive.value) {
-                                            setFlashOff()
-                                        } else {
-                                            setFlashOn()
-                                        }
-                                        isFlashActive.value = !isFlashActive.value
-                                    }
-                                ) {
-                                    if (isFlashActive.value) {
-                                        Icon(
-                                            Icons.Filled.FlashOff,
-                                            contentDescription = "Turn off flash", // TODO: localize
-                                        )
-                                    } else {
-                                        Icon(
-                                            Icons.Filled.FlashOn,
-                                            contentDescription = stringResource(id = R.string.turn_on_flash),
-                                        )
-                                    }
-                                }
-                            }
-
-                            TopAppBarDropdownMenu(
-                                onAboutClick = {
-                                    onAboutClick()
-                                }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = title,
+                        color = MaterialTheme.colors.onPrimary,
+                        style = MaterialTheme.typography.h6,
+                    )
+                },
+                backgroundColor = toolbarColor(),
+                contentColor = MaterialTheme.colors.onPrimary,
+                navigationIcon = if (showBackButton) {
+                    {
+                        IconButton(onClick = onBackClick) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = null
                             )
                         }
                     }
-                )
-            },
-            content = { content() }
-        )
-    }
+                } else {
+                    null
+                },
+                actions = {
+                    if (showToolbarActions) {
+                        if (showFlashSelector && hasFlash(context)) {
+                            IconButton(
+                                onClick = {
+                                    if (isFlashActive.value) {
+                                        setFlashOff()
+                                    } else {
+                                        setFlashOn()
+                                    }
+                                    isFlashActive.value = !isFlashActive.value
+                                }
+                            ) {
+                                if (isFlashActive.value) {
+                                    Icon(
+                                        Icons.Filled.FlashOff,
+                                        contentDescription = stringResource(string.turn_off_flash),
+                                    )
+                                } else {
+                                    Icon(
+                                        Icons.Filled.FlashOn,
+                                        contentDescription = stringResource(id = R.string.turn_on_flash),
+                                    )
+                                }
+                            }
+                        }
+
+                        TopAppBarDropdownMenu(
+                            onAboutClick = {
+                                onAboutClick()
+                            }
+                        )
+                    }
+                }
+            )
+        },
+        content = { content(it) }
+    )
 }
 

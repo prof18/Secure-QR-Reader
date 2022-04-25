@@ -1,3 +1,19 @@
+/*
+ * Copyright 2022 Marco Gomiero
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.prof18.secureqrreader
 
 import android.os.Bundle
@@ -19,12 +35,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.google.accompanist.navigation.animation.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.prof18.secureqrreader.screens.AboutScreen
+import com.prof18.secureqrreader.screens.LibrariesScreen
+import com.prof18.secureqrreader.screens.ResultScreen
+import com.prof18.secureqrreader.screens.ScanScreen
+import com.prof18.secureqrreader.screens.SplashScreen
+import com.prof18.secureqrreader.screens.WelcomeScreen
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import com.prof18.secureqrreader.style.toolbarColor
 import kotlinx.coroutines.launch

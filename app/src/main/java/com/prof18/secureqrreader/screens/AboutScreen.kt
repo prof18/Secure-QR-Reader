@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.prof18.secureqrreader
+package com.prof18.secureqrreader.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -37,6 +37,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.prof18.secureqrreader.R.string
 import com.prof18.secureqrreader.components.AboutScreenScaffold
 import com.prof18.secureqrreader.style.Margins
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
@@ -62,7 +63,7 @@ fun AboutScreen(
                         modifier = Modifier
                             .padding(Margins.regular),
                         color = MaterialTheme.colors.onBackground,
-                        text = stringResource(id = R.string.welcome_screen_content),
+                        text = stringResource(id = string.welcome_screen_content),
                         style = MaterialTheme.typography.body1,
                     )
                 }
@@ -73,7 +74,7 @@ fun AboutScreen(
                             .padding(Margins.regular),
                         onClick = showOnGithubClicked
                     ) {
-                        Text(stringResource(id = R.string.show_on_github))
+                        Text(stringResource(id = string.show_on_github))
                     }
                 }
                 item {
@@ -84,7 +85,7 @@ fun AboutScreen(
                             .padding(bottom = Margins.regular),
                         onClick = licensesClicked
                     ) {
-                        Text(stringResource(id = R.string.open_source_licenses))
+                        Text(stringResource(id = string.open_source_licenses))
                     }
                 }
             }
@@ -104,7 +105,7 @@ fun AnnotatedClickableText(
     onTextClick: () -> Unit,
 ) {
     val annotatedText = buildAnnotatedString {
-        append(stringResource(id = R.string.author_label))
+        append(stringResource(id = string.author_label))
 
         pushStringAnnotation(
             tag = "URL",

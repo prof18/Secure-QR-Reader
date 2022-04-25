@@ -32,4 +32,7 @@
     <string name="show_on_github">Show on GitHub</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="scan_instructions">Just frame the QR code and it will be recognized automatically</string>
+    <string name="request_permission">Request permission</string>
+    <string name="unespected_error">Sorry, something unexpected happened. Please retry</string>
+    <string name="turn_off_flash">Turn off flash</string>
 </resources>
