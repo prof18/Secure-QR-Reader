@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.androidx.datastore.preference)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.android.material)
+    implementation(libs.accompanist.systemuicontroller)
 
     // Not upgrade, because otherwise will work only on api > 24
     implementation(libs.zxing.android.embedded) {

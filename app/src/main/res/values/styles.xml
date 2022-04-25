@@ -16,19 +16,11 @@
 
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="android:statusBarColor">@color/toolbarColor</item>
-        <item name="android:windowLightStatusBar">false</item>
-    </style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
-    <!--  TODO: rename and fix themes  -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        // Set the splash screen background, animated icon, and animation duration.
         <item name="windowSplashScreenBackground">@color/colorBackground</item>
-
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
-
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 

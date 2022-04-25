@@ -74,3 +74,12 @@ internal fun toolbarColor(
 } else {
     LightAppColors.toolbar
 }
+
+@Composable
+internal fun toolbarColorSplashScreen(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+): Color = if (darkTheme) {
+    DarkAppColors.toolbar
+} else {
+    LightAppColors.toolbar
+}
