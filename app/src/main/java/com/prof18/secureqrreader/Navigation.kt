@@ -6,4 +6,5 @@ internal sealed class Screen(val name: String) {
     object ScanScreen : Screen("scan_screen")
     object ResultScreen : Screen("result_screen")
     object AboutScreen : Screen("about_screen")
+    object LibrariesScreen: Screen("libraries_screen")
 }

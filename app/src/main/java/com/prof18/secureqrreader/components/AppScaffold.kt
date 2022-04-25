@@ -84,7 +84,24 @@ fun ResultScreenScaffold(
 )
 
 @Composable
+fun LibrariesScreenScaffold(
+    onBackClick: () -> Unit,
+    content: @Composable () -> Unit,
+) = AppScaffold(
+    title = stringResource(id = R.string.open_source_licenses),
+    showBackButton = true,
+    showToolbarActions = false,
+    showFlashSelector = false,
+    setFlashOn = { },
+    setFlashOff = { },
+    onAboutClick = {},
+    onBackClick = onBackClick,
+    content = content
+)
+
+@Composable
 private fun AppScaffold(
+    title: String = stringResource(id = R.string.app_name),
     showBackButton: Boolean,
     showFlashSelector: Boolean,
     showToolbarActions: Boolean,
@@ -106,7 +123,7 @@ private fun AppScaffold(
                 TopAppBar(
                     title = {
                         Text(
-                            text = stringResource(id = R.string.app_name),
+                            text = title,
                             color = MaterialTheme.colors.onPrimary,
                             style = MaterialTheme.typography.h6,
                         )

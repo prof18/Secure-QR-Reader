@@ -19,7 +19,11 @@ viewModelKTX = "2.4.1"
 datastore = "1.0.0"
 splashscreen = "1.0.0-beta02"
 accompanist-permissions = "0.24.7-alpha"
-
+accompanist-systemuicontroller= "0.24.7-alpha"
+about-libraries = "10.1.0"
+zxing-core = "3.3.0"
+zxing-android-embedded = "4.3.0"
+android-material = "1.5.0"
 
 [libraries]
 androidx-activity-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -40,6 +44,12 @@ kotlinx-coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 kotlinx-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
+about-libraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref="about-libraries" }
+about-libraries-compose = { module = "com.mikepenz:aboutlibraries-compose", version.ref="about-libraries" }
+zxing-core = {module = "com.google.zxing:core", version.ref="zxing-core"}
+zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref= "zxing-android-embedded"}
+android-material = { module = "com.google.android.material:material", version.ref="android.material" }
 
 [bundles]
 compose = [
@@ -53,8 +63,10 @@ compose = [
     "androidx-compose-ui-uiTest",
     "androidx-compose-ui-uiTooling",
     "androidx-navigation-navigationCompose",
-    "accompanist-permissions"
+    "accompanist-permissions",
+    "accompanist-systemuicontroller"
 ]
+about-libraries = [ "about-libraries-core", "about-libraries-compose" ]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugins-agp" }

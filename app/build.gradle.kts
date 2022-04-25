@@ -72,21 +72,17 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.androidx.datastore.preference)
     implementation(libs.androidx.core.splashscreen)
-    implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("com.google.android.material:material:1.1.0")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation(libs.android.material)
+
     // Not upgrade, because otherwise will work only on api > 24
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0") {
+    implementation(libs.zxing.android.embedded) {
         isTransitive = false
     }
     // Not upgrade, because otherwise will work only on api > 24
-    implementation("com.google.zxing:core:3.3.0")
+    implementation(libs.zxing.android.embedded)
 
-    implementation("com.mikepenz:aboutlibraries-core:10.1.0")
-    implementation("com.mikepenz:aboutlibraries:10.1.0")
+    implementation(libs.bundles.about.libraries)
+
 }
 
 

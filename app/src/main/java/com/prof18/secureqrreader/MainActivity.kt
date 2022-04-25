@@ -1,7 +1,6 @@
 package com.prof18.secureqrreader
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
@@ -15,8 +14,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mikepenz.aboutlibraries.LibsBuilder
-import com.prof18.secureqrreader.R.string
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -108,21 +105,21 @@ class MainActivity : ComponentActivity() {
                     AboutScreen(
                         showOnGithubClicked = { openUrl("https://www.marcogomiero.com", context) },
                         licensesClicked = {
-                            // TODO: move to compose support?
-                            LibsBuilder()
-                                .withLicenseShown(true)
-                                .withAboutAppName(context.getString(string.app_name))
-                                .withActivityTitle("Open Source Libraries")
-                                .withAboutDescription("<a href='https://it.freepik.com/foto-vettori-gratuito/tecnologia'>Vectors from freepik - it.freepik.com</a>")
-                                .withEdgeToEdge(true)
-                                .start(context)
+                              navController.navigate(Screen.LibrariesScreen.name)
                         },
                         nameClicked = { openUrl("https://www.marcogomiero.com", context) },
                         onBackPressed = { navController.popBackStack() }
                     )
                 }
-            }
 
+                composable(Screen.LibrariesScreen.name) {
+                    LibrariesScreen(
+                        onBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
+            }
         }
     }
 }
