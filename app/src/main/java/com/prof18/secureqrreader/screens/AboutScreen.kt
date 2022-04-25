@@ -18,10 +18,14 @@ package com.prof18.secureqrreader.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -30,12 +34,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Modifier.Companion
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.prof18.secureqrreader.R.string
 import com.prof18.secureqrreader.components.AboutScreenScaffold
@@ -52,55 +59,137 @@ fun AboutScreen(
     AboutScreenScaffold(
         onBackClick = onBackPressed,
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            LazyColumn(
-                modifier = Modifier.weight(1f)
-            ) {
-                item {
-                    Text(
-                        modifier = Modifier
-                            .padding(Margins.regular),
-                        color = MaterialTheme.colors.onBackground,
-                        text = stringResource(id = string.welcome_screen_content),
-                        style = MaterialTheme.typography.body1,
-                    )
-                }
-                item {
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(Margins.regular),
-                        onClick = showOnGithubClicked
-                    ) {
-                        Text(stringResource(id = string.show_on_github))
-                    }
-                }
-                item {
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = Margins.regular)
-                            .padding(bottom = Margins.regular),
-                        onClick = licensesClicked
-                    ) {
-                        Text(stringResource(id = string.open_source_licenses))
-                    }
-                }
+        val configuration = LocalConfiguration.current
+        when (configuration.orientation) {
+            Configuration.ORIENTATION_LANDSCAPE -> {
+                LandscapeView(showOnGithubClicked, licensesClicked, nameClicked)
             }
-            AnnotatedClickableText(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(Margins.big),
-                onTextClick = nameClicked
-            )
+            else -> {
+                PortraitView(showOnGithubClicked, licensesClicked, nameClicked)
+            }
         }
     }
 }
 
 @Composable
-fun AnnotatedClickableText(
+private fun LandscapeView(
+    showOnGithubClicked: () -> Unit,
+    licensesClicked: () -> Unit,
+    nameClicked: () -> Unit,
+) {
+    Row {
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
+            item {
+                AboutTextItem(
+                    modifier = Modifier.padding(Margins.regular),
+                )
+            }
+        }
+
+        LazyColumn(
+            modifier = Modifier.weight(2f)
+        ) {
+            item {
+                AboutButtonItem(
+                    onClick = showOnGithubClicked,
+                    buttonText = stringResource(id = string.show_on_github)
+                )
+            }
+            item {
+                AboutButtonItem(
+                    onClick = licensesClicked,
+                    buttonText = stringResource(id = string.open_source_licenses)
+                )
+            }
+            item {
+                AuthorText(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(align = Alignment.CenterHorizontally),
+                    nameClicked = nameClicked
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PortraitView(
+    showOnGithubClicked: () -> Unit,
+    licensesClicked: () -> Unit,
+    nameClicked: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
+            item {
+                AboutTextItem(
+                    modifier = Modifier.padding(Margins.regular),
+                )
+            }
+            item {
+                AboutButtonItem(
+                    onClick = showOnGithubClicked,
+                    buttonText = stringResource(id = string.show_on_github)
+                )
+            }
+            item {
+                AboutButtonItem(
+                    onClick = licensesClicked,
+                    buttonText = stringResource(id = string.open_source_licenses)
+                )
+            }
+        }
+        AuthorText(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            nameClicked = nameClicked,
+        )
+    }
+}
+
+@Composable
+private fun AuthorText(nameClicked: () -> Unit, modifier: Modifier = Modifier) {
+    AnnotatedClickableText(
+        modifier = modifier
+            .padding(Margins.big),
+        onTextClick = nameClicked
+    )
+}
+
+@Composable
+private fun AboutButtonItem(
+    onClick: () -> Unit,
+    buttonText: String,
+) {
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Margins.regular),
+        onClick = onClick
+    ) {
+        Text(buttonText)
+    }
+}
+
+@Composable
+private fun AboutTextItem(
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        modifier = modifier,
+        color = MaterialTheme.colors.onBackground,
+        text = stringResource(id = string.welcome_screen_content),
+        style = MaterialTheme.typography.body1,
+    )
+}
+
+@Composable
+private fun AnnotatedClickableText(
     modifier: Modifier = Modifier,
     onTextClick: () -> Unit,
 ) {
@@ -142,6 +231,7 @@ fun AnnotatedClickableText(
 }
 
 @Preview
+@Preview(device = Devices.AUTOMOTIVE_1024p, widthDp = 720, heightDp = 360)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AboutScreenPreview() {
