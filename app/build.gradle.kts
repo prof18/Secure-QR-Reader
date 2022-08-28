@@ -14,10 +14,18 @@
  * limitations under the License.
  */
 
+import java.util.Properties;
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.mikepenz.aboutlibraries.plugin")
+}
+
+val local = Properties()
+val localProperties: File = rootProject.file("keystore.properties")
+if (localProperties.exists()) {
+    localProperties.inputStream().use { local.load(it) }
 }
 
 android {
