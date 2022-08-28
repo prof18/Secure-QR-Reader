@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+plugins {
+    alias(libs.plugins.versionsBenManes)
+}
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -20,9 +25,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.android.tools.build:gradle:7.1.3")
-        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:10.1.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
+        classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${libs.versions.about.libraries.get()}")
     }
 }
 

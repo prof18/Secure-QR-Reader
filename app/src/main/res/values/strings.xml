@@ -28,7 +28,6 @@
     <string name="welcome_screen_content">Don\'t install spyware on your phone!\n\nThis QR reader does not require sneaky, strange and useless permissions just for the sake of stealing your data.\n\nThere aren\'t ads, trackers of any sort and what do you scan remains on your phone</string>
     <string name="welcome_screen_button">Start</string>
     <string name="author_label">Developed with ❤️ by</string>
-    <string name="menu_donate">Donate</string>
     <string name="show_on_github">Show on GitHub</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="scan_instructions">Just frame the QR code and it will be recognized automatically</string>

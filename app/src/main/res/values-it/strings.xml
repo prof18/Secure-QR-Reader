@@ -17,21 +17,22 @@
 
 <resources>
     <string name="app_name">QR Reader Sicuro</string>
-    <string name="open_source_licenses">Licenze Open Source</string>
-    <string name="show_on_github">Mostra su GitHub</string>
-    <string name="menu_donate">Donazioni</string>
-    <string name="author_label">Sviluppata con ❤️ da</string>
+    <string name="camera_permission_explanation">Devo accedere alla fotocamera per scansionar il codice QR</string>
+    <string name="permission_required_dialog_title">Permesso necessario</string>
+    <string name="permission_required_dialog_content">Mi serve il permesso di accedere alla fotocamera per scansionare il QR code</string>
     <string name="turn_on_flash">Accendi il flash</string>
     <string name="qr_result_open">Apri</string>
     <string name="qr_result_copy">Copia</string>
     <string name="qr_result_share">Condividi</string>
     <string name="qr_result_scan_another">Scansiona ancora</string>
-    <string name="welcome_screen_button">Comincia</string>
     <string name="settings_about">Informazioni</string>
-    <string name="camera_permission_explanation">Devo accedere alla fotocamera per scansionar il codice QR</string>
-    <string name="permission_required_dialog_title">Permesso necessario</string>
-    <string name="permission_required_dialog_content">Mi serve il permesso di accedere alla fotocamera per scansionare il QR code</string>
     <string name="welcome_screen_content">Non installare virus sul tuo telefono!\n\nQuesto lettore di codici QR non richiede permessi strani ed inutili solo per rubare i tuoi dati.\n\nNon ci sono pubblicità, i dati non vengono tracciati e quello che scansioni rimane nel tuo cellulare.</string>
+    <string name="welcome_screen_button">Comincia</string>
+    <string name="author_label">Sviluppata con ❤️ da</string>
+    <string name="show_on_github">Mostra su GitHub</string>
+    <string name="open_source_licenses">Licenze Open Source</string>
     <string name="scan_instructions">Semplicemente inquadra il QR Code e verrà riconosciuto automaticamente.</string>
-
+    <string name="request_permission">Richiesta permessi</string>
+    <string name="unespected_error">Scusami, è successo qualcosa di inaspettato. Per favore riprova</string>
+    <string name="turn_off_flash">Spegni flash</string>
 </resources>

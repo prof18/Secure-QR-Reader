@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.apache.commons.io.output.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
@@ -22,14 +21,15 @@ plugins {
 }
 
 android {
+    namespace = "com.prof18.secureqrreader"
+    compileSdk = 33
 
-    compileSdk = 32
     defaultConfig {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
-        targetSdk = 32
-        versionCode = /*getVersionCode()*/ 10002 // TODO: maybe change it
-        versionName = getVersionName()
+        targetSdk = 33
+        versionCode = 20000
+        versionName = "2.0.0"
     }
 
     compileOptions {
@@ -37,28 +37,28 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-//    signingConfigs {
-//        create("release") {
-//            keyAlias = local.getProperty("keyAlias")
-//            keyPassword = local.getProperty("keyPassword")
-//            storeFile = file(local.getProperty("storeFile") ?: "NOT_FOUND")
-//            storePassword = local.getProperty("storePassword")
-//        }
-//    }
-
-    buildTypes {
-        getByName("release") {
-//            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            isMinifyEnabled = false
-//            signingConfig = signingConfigs.getByName("release")
+    signingConfigs {
+        create("release") {
+            keyAlias = local.getProperty("keyAlias")
+            keyPassword = local.getProperty("keyPassword")
+            storeFile = file(local.getProperty("storeFile") ?: "NOT_FOUND")
+            storePassword = local.getProperty("storePassword")
         }
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    buildTypes {
+        getByName("release") {
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
+        }
     }
 
     buildFeatures { compose = true }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -85,24 +85,4 @@ dependencies {
 
     implementation(libs.bundles.about.libraries)
 
-}
-
-
-fun getVersionCode(): Int {
-    val outputStream = ByteArrayOutputStream()
-    project.exec {
-        commandLine = "git rev-list HEAD --first-parent --count".split(" ")
-        standardOutput = outputStream
-    }
-    return outputStream.toString().trim().toInt()
-}
-
-
-fun getVersionName(): String {
-    val outputStream = ByteArrayOutputStream()
-    project.exec {
-        commandLine = "git describe --tags --abbrev=0".split(" ")
-        standardOutput = outputStream
-    }
-    return outputStream.toString().trim()
 }
