@@ -34,4 +34,5 @@
     <string name="request_permission">Request permission</string>
     <string name="unespected_error">Sorry, something unexpected happened. Please retry</string>
     <string name="turn_off_flash">Turn off flash</string>
+    <string name="browser_not_found_url">I can\'t find a web browser to open the link :(</string>
 </resources>

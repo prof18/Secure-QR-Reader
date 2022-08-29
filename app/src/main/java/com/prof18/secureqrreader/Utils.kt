@@ -26,6 +26,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import android.util.Patterns
+import android.widget.Toast
 
 fun Context.getActivity(): Activity? {
     var currentContext = this
@@ -42,8 +43,10 @@ fun hasFlash(context: Context): Boolean =
     context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)
 
 fun goToAppSettings(context: Context) {
-    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-        Uri.fromParts("package", context.packageName, null))
+    val intent = Intent(
+        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+        Uri.fromParts("package", context.packageName, null)
+    )
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     context.startActivity(intent)
 }

@@ -35,4 +35,6 @@
     <string name="request_permission">Richiesta permessi</string>
     <string name="unespected_error">Scusami, è successo qualcosa di inaspettato. Per favore riprova</string>
     <string name="turn_off_flash">Spegni flash</string>
+    <string name="browser_not_found_url">Non riesco a trovare un web broswer per aprire il link :(</string>
+
 </resources>

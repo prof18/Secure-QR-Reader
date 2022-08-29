@@ -28,13 +28,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -66,7 +64,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberAnimatedNavController()
             val scope = rememberCoroutineScope()
-            val context = LocalContext.current
             val navBackStackEntry by navController.currentBackStackEntryAsState()
 
             var scanResult by rememberSaveable {
@@ -153,9 +150,9 @@ class MainActivity : ComponentActivity() {
                         ResultScreen(
                             scanResult = scanResult,
                             isUrl = isUrl(scanResult),
-                            onOpenButtonClick = { openUrl(scanResult, context) },
-                            onCopyButtonClick = { copyToClipboard(scanResult, context) },
-                            onShareButtonClick = { shareResult(scanResult, context) },
+                            onOpenButtonClick = { openUrl(scanResult, this@MainActivity) },
+                            onCopyButtonClick = { copyToClipboard(scanResult, this@MainActivity) },
+                            onShareButtonClick = { shareResult(scanResult, this@MainActivity) },
                             onScanAnotherButtonClick = { navController.popBackStack() },
                             onAboutClick = { navController.navigate(Screen.AboutScreen.name) },
                             onBackClick = { navController.popBackStack() }
@@ -164,11 +161,11 @@ class MainActivity : ComponentActivity() {
 
                     composable(Screen.AboutScreen.name) {
                         AboutScreen(
-                            showOnGithubClicked = { openUrl("https://www.marcogomiero.com", context) },
+                            showOnGithubClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
                             licensesClicked = {
                                 navController.navigate(Screen.LibrariesScreen.name)
                             },
-                            nameClicked = { openUrl("https://www.marcogomiero.com", context) },
+                            nameClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
                             onBackPressed = { navController.popBackStack() }
                         )
                     }
