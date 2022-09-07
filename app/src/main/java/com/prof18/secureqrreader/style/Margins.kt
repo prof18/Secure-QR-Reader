@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Marco Gomiero
+ * Copyright 2022 Marco Gomiero
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package com.prof18.secureqrreader
+package com.prof18.secureqrreader.style
 
-import org.junit.Test
+import androidx.compose.ui.unit.dp
 
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+internal object Margins {
+    val small = 8.dp
+    val regular = 16.dp
+    val medium = 24.dp
+    val big = 32.dp
 }

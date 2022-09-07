@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Marco Gomiero
+ * Copyright 2022 Marco Gomiero
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,97 +16,183 @@
 
 package com.prof18.secureqrreader
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.prof18.secureqrreader.screens.AboutScreen
+import com.prof18.secureqrreader.screens.LibrariesScreen
+import com.prof18.secureqrreader.screens.ResultScreen
+import com.prof18.secureqrreader.screens.ScanScreen
+import com.prof18.secureqrreader.screens.SplashScreen
+import com.prof18.secureqrreader.screens.WelcomeScreen
+import com.prof18.secureqrreader.style.SecureQrReaderTheme
+import com.prof18.secureqrreader.style.toolbarColor
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var scanFragment: ScanFragment
-    private var flashActive = false
-    private var hideFlashMenu = false
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val preferencesWrapper = PreferencesWrapper(this)
+
+        var dismissSplashScreen = false
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { !dismissSplashScreen }
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-        scanFragment = ScanFragment()
+        setContent {
+            val navController = rememberAnimatedNavController()
+            val scope = rememberCoroutineScope()
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, scanFragment, ScanFragment.SCANNER_FRAGMENT_TAG)
-                .commit()
+            var scanResult by rememberSaveable {
+                mutableStateOf<String?>(null)
+            }
 
-        supportFragmentManager.registerFragmentLifecycleCallbacks(object: FragmentManager.FragmentLifecycleCallbacks() {
-            override fun onFragmentResumed(fm: FragmentManager, fragment: Fragment) {
-                super.onFragmentResumed(fm, fragment)
-
-                if (fragment is ScanFragment) {
-                    hideFlashMenu(false)
-                } else if (fragment is ResultFragment) {
-                    hideFlashMenu(true)
+            LaunchedEffect(Unit) {
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    dismissSplashScreen = destination.route != Screen.Splash.name
                 }
-
             }
-        }, true)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+            SecureQrReaderTheme {
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        if (!hasFlash()) {
-            menu.findItem(R.id.action_flash).isVisible = false
-        }
+                val toolbarColor = toolbarColor()
+                val splashScreenColor = MaterialTheme.colors.background
 
-        menu.findItem(R.id.action_flash).isVisible = !hideFlashMenu
-
-        if (flashActive) {
-            menu.findItem(R.id.action_flash).icon = ContextCompat.getDrawable(this, R.drawable.ic_flash_off)
-        } else {
-            menu.findItem(R.id.action_flash).icon = ContextCompat.getDrawable(this, R.drawable.ic_flash_on)
-        }
-
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    private fun hasFlash(): Boolean {
-        return applicationContext.packageManager
-            .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_about -> {
-                startActivity(Intent(this, AboutActivity::class.java))
-                true
-            }
-            R.id.action_flash -> {
-                if (flashActive) {
-                    flashActive = false
-                    scanFragment.enableFlash(false)
+                val statusBarColor = if (navBackStackEntry?.destination?.route == Screen.WelcomeScreen.name) {
+                    splashScreenColor
                 } else {
-                    flashActive = true
-                    scanFragment.enableFlash(true)
+                    toolbarColor
                 }
-                invalidateOptionsMenu()
-                true
+
+                SetupTransparentSystemUi(
+                    systemUiController = rememberSystemUiController(),
+                    actualBackgroundColor = statusBarColor
+                )
+
+                AnimatedNavHost(
+                    navController,
+                    startDestination = Screen.Splash.name,
+                    enterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+                    exitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.Start) },
+                    popEnterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.End) },
+                    popExitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }
+                ) {
+
+                    composable(Screen.Splash.name) {
+                        SplashScreen(preferencesWrapper) { isOnboardingRequired ->
+                            if (isOnboardingRequired) {
+                                navController.navigate(Screen.WelcomeScreen.name) {
+                                    popUpTo(Screen.Splash.name) {
+                                        inclusive = true
+                                    }
+                                }
+                            } else {
+                                navController.navigate(Screen.ScanScreen.name) {
+                                    popUpTo(Screen.Splash.name) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    composable(Screen.WelcomeScreen.name) {
+                        WelcomeScreen(
+                            onStartClick = {
+                                scope.launch {
+                                    preferencesWrapper.setOnboardingDone()
+                                }
+                                navController.navigate(Screen.ScanScreen.name) {
+                                    popUpTo(Screen.WelcomeScreen.name) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+                        )
+                    }
+
+                    composable(Screen.ScanScreen.name) {
+                        ScanScreen(
+                            onResultFound = { result ->
+                                scanResult = result
+                                navController.navigate(Screen.ResultScreen.name)
+                            },
+                            onAboutClick = {
+                                navController.navigate(Screen.AboutScreen.name)
+                            }
+                        )
+                    }
+
+                    composable(Screen.ResultScreen.name) {
+                        ResultScreen(
+                            scanResult = scanResult,
+                            isUrl = isUrl(scanResult),
+                            onOpenButtonClick = { openUrl(scanResult, this@MainActivity) },
+                            onCopyButtonClick = { copyToClipboard(scanResult, this@MainActivity) },
+                            onShareButtonClick = { shareResult(scanResult, this@MainActivity) },
+                            onScanAnotherButtonClick = { navController.popBackStack() },
+                            onAboutClick = { navController.navigate(Screen.AboutScreen.name) },
+                            onBackClick = { navController.popBackStack() }
+                        )
+                    }
+
+                    composable(Screen.AboutScreen.name) {
+                        AboutScreen(
+                            showOnGithubClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
+                            licensesClicked = {
+                                navController.navigate(Screen.LibrariesScreen.name)
+                            },
+                            nameClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
+                            onBackPressed = { navController.popBackStack() }
+                        )
+                    }
+
+                    composable(Screen.LibrariesScreen.name) {
+                        LibrariesScreen(
+                            onBackClick = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+                }
             }
-            else -> super.onOptionsItemSelected(item)
         }
     }
+}
 
-    fun hideFlashMenu(hide: Boolean) {
-        hideFlashMenu = hide
-        invalidateOptionsMenu()
+@Composable
+internal fun SetupTransparentSystemUi(
+    systemUiController: SystemUiController,
+    actualBackgroundColor: Color,
+) {
+    val minLuminanceForDarkIcons = .5f
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = actualBackgroundColor,
+            darkIcons = actualBackgroundColor.luminance() > minLuminanceForDarkIcons
+        )
     }
 }

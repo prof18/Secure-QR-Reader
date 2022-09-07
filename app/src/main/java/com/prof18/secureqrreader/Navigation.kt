@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Marco Gomiero
+ * Copyright 2022 Marco Gomiero
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,5 +14,13 @@
  * limitations under the License.
  */
 
-include ':app'
-rootProject.name = "Secure QR Reader"
+package com.prof18.secureqrreader
+
+internal sealed class Screen(val name: String) {
+    object Splash : Screen("splash_screen")
+    object WelcomeScreen : Screen("welcome_screen")
+    object ScanScreen : Screen("scan_screen")
+    object ResultScreen : Screen("result_screen")
+    object AboutScreen : Screen("about_screen")
+    object LibrariesScreen: Screen("libraries_screen")
+}

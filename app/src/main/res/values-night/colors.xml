@@ -16,20 +16,7 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#102a43</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorBackground">#121212</color>
-    <color name="colorSurface">#121212</color>
-    <color name="colorError">#CF6679</color>
-    <color name="colorOnPrimary">#f0f4f8</color>
-    <color name="colorOnSecondary">#000000</color>
+    <color name="colorBackground">#121212</color>igra
     <color name="colorOnBackground">#f0f4f8</color>
-    <color name="colorOnSurface">#f0f4f8</color>
-    <color name="colorOnError">#000000</color>
-    <color name="statusBarColor">#121212</color>
-
     <color name="toolbarColor">#102a43</color>
-
 </resources>
