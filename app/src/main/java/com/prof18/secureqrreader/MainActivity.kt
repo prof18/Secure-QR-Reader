@@ -161,7 +161,7 @@ class MainActivity : ComponentActivity() {
 
                     composable(Screen.AboutScreen.name) {
                         AboutScreen(
-                            showOnGithubClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
+                            showOnGithubClicked = { openUrl("https://github.com/prof18/Secure-QR-Reader", this@MainActivity) },
                             licensesClicked = {
                                 navController.navigate(Screen.LibrariesScreen.name)
                             },

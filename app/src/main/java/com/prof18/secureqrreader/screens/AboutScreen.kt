@@ -169,7 +169,8 @@ private fun AboutButtonItem(
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(Margins.regular),
+            .padding(horizontal = Margins.regular)
+            .padding(vertical = Margins.small),
         onClick = onClick
     ) {
         Text(buttonText)
