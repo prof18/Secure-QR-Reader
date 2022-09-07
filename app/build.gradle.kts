@@ -36,8 +36,8 @@ android {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
         targetSdk = 33
-        versionCode = 20002
-        versionName = "2.0.2"
+        versionCode = 20003
+        versionName = "2.0.3"
     }
 
     compileOptions {
