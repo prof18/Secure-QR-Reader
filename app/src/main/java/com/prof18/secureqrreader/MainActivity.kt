@@ -20,6 +20,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.material.MaterialTheme
@@ -50,6 +51,7 @@ import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import com.prof18.secureqrreader.style.toolbarColor
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -161,7 +163,9 @@ class MainActivity : ComponentActivity() {
 
                     composable(Screen.AboutScreen.name) {
                         AboutScreen(
-                            showOnGithubClicked = { openUrl("https://github.com/prof18/Secure-QR-Reader", this@MainActivity) },
+                            showOnGithubClicked = {
+                                openUrl("https://github.com/prof18/Secure-QR-Reader", this@MainActivity)
+                            },
                             licensesClicked = {
                                 navController.navigate(Screen.LibrariesScreen.name)
                             },

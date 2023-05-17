@@ -15,25 +15,8 @@
  */
 
 plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.about.libraries) apply false
     alias(libs.plugins.versionsBenManes)
-}
-
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlin.get()}")
-        classpath("com.android.tools.build:gradle:7.2.2")
-        classpath("com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:${libs.versions.about.libraries.get()}")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
 }

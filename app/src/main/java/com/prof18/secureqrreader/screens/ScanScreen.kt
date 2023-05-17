@@ -49,6 +49,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.zxing.BarcodeFormat
@@ -67,6 +68,7 @@ import com.prof18.secureqrreader.goToAppSettings
 import com.prof18.secureqrreader.style.Margins
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ScanScreen(
     onResultFound: (String) -> Unit = { },

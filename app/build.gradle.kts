@@ -17,9 +17,12 @@
 import java.util.Properties;
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("com.mikepenz.aboutlibraries.plugin")
+    alias(libs.plugins.android.application)
+//    id("com.android.application")
+//    id("kotlin-android")
+    alias(libs.plugins.kotlin.android)
+//    id("com.mikepenz.aboutlibraries.plugin")
+    alias(libs.plugins.about.libraries)
 }
 
 val local = Properties()
@@ -71,12 +74,14 @@ android {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi" + "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
         jvmTarget = libs.versions.java.get()
     }
 }
 
 dependencies {
+
+    implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.androidx.datastore.preference)
