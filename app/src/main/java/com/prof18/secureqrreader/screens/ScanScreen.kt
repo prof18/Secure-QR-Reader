@@ -22,9 +22,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -36,6 +40,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -61,12 +66,13 @@ import com.journeyapps.barcodescanner.CompoundBarcodeView
 import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import com.prof18.secureqrreader.R
 import com.prof18.secureqrreader.R.string
-import com.prof18.secureqrreader.components.ScanScreenScaffold
+import com.prof18.secureqrreader.components.ScanScreenNavigationBar
 import com.prof18.secureqrreader.components.ScanScreenWithoutCameraScaffold
 import com.prof18.secureqrreader.getActivity
 import com.prof18.secureqrreader.goToAppSettings
 import com.prof18.secureqrreader.style.Margins
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
+import com.prof18.secureqrreader.style.toolbarColor
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -141,73 +147,113 @@ private fun ScanView(
     compoundBarcodeView: CompoundBarcodeView,
     onAboutClick: () -> Unit,
 ) {
-    ScanScreenScaffold(
-        setFlashOn = { compoundBarcodeView.setTorchOn() },
-        setFlashOff = { compoundBarcodeView.setTorchOff() },
-        onAboutClick = onAboutClick
-    ) {
-        val configuration = LocalConfiguration.current
-        when (configuration.orientation) {
-            Configuration.ORIENTATION_LANDSCAPE -> {
-                ScanLandscapeView(compoundBarcodeView)
-            }
-            else -> {
-                ScanPortraitView(compoundBarcodeView)
-            }
+    val configuration = LocalConfiguration.current
+    when (configuration.orientation) {
+        Configuration.ORIENTATION_LANDSCAPE -> {
+            ScanLandscapeView(
+                compoundBarcodeView,
+                setFlashOn = { compoundBarcodeView.setTorchOn() },
+                setFlashOff = { compoundBarcodeView.setTorchOff() },
+                onAboutClick = onAboutClick
+            )
+        }
+
+        else -> {
+            ScanPortraitView(
+                compoundBarcodeView,
+                setFlashOn = { compoundBarcodeView.setTorchOn() },
+                setFlashOff = { compoundBarcodeView.setTorchOff() },
+                onAboutClick = onAboutClick,
+
+                )
         }
     }
 }
 
 @Composable
-private fun ScanPortraitView(compoundBarcodeView: CompoundBarcodeView) {
-    Column {
-        ScanIllustration(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .wrapContentWidth(align = Alignment.CenterHorizontally)
-        )
-        ScanHint(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentWidth(align = Alignment.CenterHorizontally)
-                .padding(top = Margins.regular)
-                .padding(horizontal = Margins.regular)
-        )
+private fun ScanPortraitView(
+    compoundBarcodeView: CompoundBarcodeView,
+    setFlashOn: () -> Unit,
+    setFlashOff: () -> Unit,
+    onAboutClick: () -> Unit,
+) {
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         ScannerView(
             modifier = Modifier
-                .weight(2f)
-                .padding(top = Margins.big, bottom = Margins.regular)
-                .padding(horizontal = Margins.regular),
+                .fillMaxSize(),
             compoundBarcodeView = compoundBarcodeView
         )
-    }
-}
 
-@Composable
-private fun ScanLandscapeView(compoundBarcodeView: CompoundBarcodeView) {
-    Row {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-        ) {
-            ScanIllustration(
+        Column {
+            ScanScreenNavigationBar(
                 modifier = Modifier
-                    .weight(1f)
+                    .padding(WindowInsets.statusBars.asPaddingValues()),
+                backgroundColor = Color.Transparent,
+                setFlashOn = setFlashOn,
+                setFlashOff = setFlashOff,
+                onAboutClick = onAboutClick,
             )
+
             ScanHint(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(align = Alignment.CenterHorizontally)
                     .padding(top = Margins.regular)
-                    .padding(horizontal = Margins.regular)
+                    .padding(horizontal = Margins.regular),
+                color = Color.White,
             )
         }
-        ScannerView(
+    }
+}
+
+@Composable
+private fun ScanLandscapeView(
+    compoundBarcodeView: CompoundBarcodeView,
+    setFlashOn: () -> Unit,
+    setFlashOff: () -> Unit,
+    onAboutClick: () -> Unit,
+) {
+    Column {
+        ScanScreenNavigationBar(
             modifier = Modifier
-                .weight(2f)
-                .padding(top = Margins.big, bottom = Margins.regular)
-                .padding(horizontal = Margins.regular),
-            compoundBarcodeView = compoundBarcodeView
+                .padding(WindowInsets.statusBars.asPaddingValues()),
+            backgroundColor = toolbarColor(),
+            setFlashOn = setFlashOn,
+            setFlashOff = setFlashOff,
+            onAboutClick = onAboutClick,
         )
+
+        Row(
+            modifier = Modifier
+                .padding(WindowInsets.navigationBars.asPaddingValues()),
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                ScanIllustration(
+                    modifier = Modifier
+                        .weight(1f)
+                )
+                ScanHint(
+                    modifier = Modifier
+                        .padding(top = Margins.regular)
+                        .padding(horizontal = Margins.regular),
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
+            ScannerView(
+                modifier = Modifier
+                    .weight(2f)
+                    .padding(top = Margins.big, bottom = Margins.regular)
+                    .padding(horizontal = Margins.regular),
+                compoundBarcodeView = compoundBarcodeView
+            )
+        }
     }
 }
 
@@ -263,10 +309,13 @@ private fun ScannerView(
 }
 
 @Composable
-private fun ScanHint(modifier: Modifier = Modifier) {
+private fun ScanHint(
+    modifier: Modifier = Modifier,
+    color: Color,
+) {
     Text(
         modifier = modifier,
-        color = MaterialTheme.colors.onBackground,
+        color = color,
         text = stringResource(id = R.string.scan_instructions),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.body1,

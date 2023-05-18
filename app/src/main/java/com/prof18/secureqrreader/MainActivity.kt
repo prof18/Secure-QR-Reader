@@ -16,6 +16,7 @@
 
 package com.prof18.secureqrreader
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,7 +35,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -61,6 +64,8 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { !dismissSplashScreen }
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -79,14 +84,20 @@ class MainActivity : ComponentActivity() {
             }
 
             SecureQrReaderTheme {
-
                 val toolbarColor = toolbarColor()
                 val splashScreenColor = MaterialTheme.colors.background
+                val configuration = LocalConfiguration.current
 
-                val statusBarColor = if (navBackStackEntry?.destination?.route == Screen.WelcomeScreen.name) {
-                    splashScreenColor
-                } else {
-                    toolbarColor
+                val statusBarColor = when (navBackStackEntry?.destination?.route) {
+                    Screen.WelcomeScreen.name -> splashScreenColor
+                    Screen.ScanScreen.name -> {
+                        when (configuration.orientation) {
+                            Configuration.ORIENTATION_LANDSCAPE -> toolbarColor
+                            else -> Color.Transparent
+                        }
+                    }
+
+                    else -> toolbarColor
                 }
 
                 SetupTransparentSystemUi(

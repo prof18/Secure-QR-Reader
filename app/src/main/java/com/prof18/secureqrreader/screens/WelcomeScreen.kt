@@ -19,8 +19,11 @@ package com.prof18.secureqrreader.screens
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,7 +49,9 @@ internal fun WelcomeScreen(
     onStartClick: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .fillMaxSize(),
     ) {
         LazyColumn(
             modifier = Modifier.weight(1f)
