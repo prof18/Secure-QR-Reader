@@ -18,11 +18,9 @@ import java.util.Properties;
 
 plugins {
     alias(libs.plugins.android.application)
-//    id("com.android.application")
-//    id("kotlin-android")
     alias(libs.plugins.kotlin.android)
-//    id("com.mikepenz.aboutlibraries.plugin")
     alias(libs.plugins.about.libraries)
+    alias(libs.plugins.triplet.play)
 }
 
 val local = Properties()
@@ -78,24 +76,21 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     }
 }
 
+play {
+    // The play_config.json file will be provided on CI
+    serviceAccountCredentials.set(file("../play_config.json"))
+    track.set("alpha")
+}
+
 dependencies {
-
     implementation(platform(libs.androidx.compose.bom))
-
     implementation(libs.bundles.compose)
     implementation(libs.bundles.accompanist)
     implementation(libs.androidx.datastore.preference)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.android.material)
     implementation(libs.accompanist.systemuicontroller)
-
-    // Not upgrade, because otherwise will work only on api > 24
-    implementation(libs.zxing.android.embedded) {
-        isTransitive = false
-    }
-    // Not upgrade, because otherwise will work only on api > 24
     implementation(libs.zxing.android.embedded)
-
     implementation(libs.bundles.about.libraries)
-
 }
+
