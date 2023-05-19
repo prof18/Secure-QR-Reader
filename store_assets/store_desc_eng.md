@@ -6,13 +6,13 @@ Privacy Focused and Secure QR Reader
 
 # Long desc
 
-Don't install spyware on your phone!
+Protect your privacy with a trustworthy QR reader!
 
-This QR reader does not require sneaky, strange and useless permissions just for the sake of stealing your data. There aren't ads, trackers of any sort and what do you scan remains on your phone. The only requested permission is for the camera.
+Say goodbye to sneaky spyware that invades your phone and steals your data. This QR reader is designed with your security in mind, so you can scan with confidence. Unlike other apps, it doesn't require strange and unnecessary permissions or bombard you with ads and trackers. Your privacy is respected, and what you scan stays on your phone.
 
-Scan and be safe!
+Rest assured, the only permission requested is for your camera, ensuring a seamless scanning experience. Additionally, the app is open source, allowing you to inspect the code for added transparency and peace of mind.
 
-The app is open source, you can inspect to code: https://github.com/prof18/Secure-QR-Reader
+Stay secure and scan worry-free with this QR reader!
 
-
+Discover the open source code here: https://github.com/prof18/Secure-QR-Reader
 
