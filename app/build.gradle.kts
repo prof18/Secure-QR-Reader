@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.about.libraries)
     alias(libs.plugins.triplet.play)
+    alias(libs.plugins.compose.compiler)
 }
 
 val local = Properties()
@@ -31,14 +32,14 @@ if (localProperties.exists()) {
 
 android {
     namespace = "com.prof18.secureqrreader"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 20004
-        versionName = "2.0.4"
+        targetSdk = 34
+        versionCode = 20005
+        versionName = "2.0.5"
     }
 
     compileOptions {
@@ -64,10 +65,6 @@ android {
     }
 
     buildFeatures { compose = true }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -85,11 +82,10 @@ play {
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
-    implementation(libs.bundles.accompanist)
+    implementation(libs.accompanist.permissions)
     implementation(libs.androidx.datastore.preference)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.android.material)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.zxing.android.embedded)
     implementation(libs.bundles.about.libraries)
 }

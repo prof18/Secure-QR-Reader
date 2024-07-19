@@ -19,6 +19,7 @@ package com.prof18.secureqrreader.screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.MaterialTheme
@@ -38,8 +39,10 @@ fun LibrariesScreen(
     SecureQrReaderTheme {
         LibrariesScreenScaffold(
             onBackClick = onBackClick
-        ) {
-            Column {
+        ) { paddingValues ->
+            Column(
+                modifier = Modifier.padding(paddingValues)
+            ) {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -52,6 +55,7 @@ fun LibrariesScreen(
 
                 LibrariesContainer(
                     Modifier.fillMaxSize()
+                        .navigationBarsPadding()
                 )
             }
         }

@@ -19,31 +19,27 @@ package com.prof18.secureqrreader
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.systemuicontroller.SystemUiController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.navigation.compose.rememberNavController
 import com.prof18.secureqrreader.screens.AboutScreen
 import com.prof18.secureqrreader.screens.LibrariesScreen
 import com.prof18.secureqrreader.screens.ResultScreen
@@ -54,7 +50,6 @@ import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import com.prof18.secureqrreader.style.toolbarColor
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,12 +59,12 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { !dismissSplashScreen }
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        enableEdgeToEdge()
 
         super.onCreate(savedInstanceState)
 
         setContent {
-            val navController = rememberAnimatedNavController()
+            val navController = rememberNavController()
             val scope = rememberCoroutineScope()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -100,18 +95,44 @@ class MainActivity : ComponentActivity() {
                     else -> toolbarColor
                 }
 
-                SetupTransparentSystemUi(
-                    systemUiController = rememberSystemUiController(),
-                    actualBackgroundColor = statusBarColor
+                val navigationBarStyle =
+                    if (navBackStackEntry?.destination?.route == Screen.ScanScreen.name && configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        SystemBarStyle.dark(
+                            Color.Transparent.toArgb(),
+                        )
+                    } else {
+                        SystemBarStyle.auto(
+                            lightScrim,
+                            darkScrim
+                        )
+                    }
+
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.dark(
+                        statusBarColor.toArgb(),
+                    ),
+                    navigationBarStyle = navigationBarStyle,
                 )
 
-                AnimatedNavHost(
+                NavHost(
                     navController,
                     startDestination = Screen.Splash.name,
-                    enterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
-                    exitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.Start) },
-                    popEnterTransition = { fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.End) },
-                    popExitTransition = { fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.End) }
+                    enterTransition = { fadeIn() + slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start) },
+                    exitTransition = {
+                        fadeOut() + slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.Start
+                        )
+                    },
+                    popEnterTransition = {
+                        fadeIn() + slideIntoContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    },
+                    popExitTransition = {
+                        fadeOut() + slideOutOfContainer(
+                            AnimatedContentTransitionScope.SlideDirection.End
+                        )
+                    }
                 ) {
 
                     composable(Screen.Splash.name) {
@@ -175,12 +196,20 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.AboutScreen.name) {
                         AboutScreen(
                             showOnGithubClicked = {
-                                openUrl("https://github.com/prof18/Secure-QR-Reader", this@MainActivity)
+                                openUrl(
+                                    "https://github.com/prof18/Secure-QR-Reader",
+                                    this@MainActivity
+                                )
                             },
                             licensesClicked = {
                                 navController.navigate(Screen.LibrariesScreen.name)
                             },
-                            nameClicked = { openUrl("https://www.marcogomiero.com", this@MainActivity) },
+                            nameClicked = {
+                                openUrl(
+                                    "https://www.marcogomiero.com",
+                                    this@MainActivity
+                                )
+                            },
                             onBackPressed = { navController.popBackStack() }
                         )
                     }
@@ -198,16 +227,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-internal fun SetupTransparentSystemUi(
-    systemUiController: SystemUiController,
-    actualBackgroundColor: Color,
-) {
-    val minLuminanceForDarkIcons = .5f
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = actualBackgroundColor,
-            darkIcons = actualBackgroundColor.luminance() > minLuminanceForDarkIcons
-        )
-    }
-}
+/**
+ * The default light scrim, as defined by androidx and the platform:
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
+ */
+private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+
+/**
+ * The default dark scrim, as defined by androidx and the platform:
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
+ */
+private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
