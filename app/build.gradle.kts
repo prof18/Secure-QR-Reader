@@ -38,8 +38,8 @@ android {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
         targetSdk = 34
-        versionCode = 20005
-        versionName = "2.0.5"
+        versionCode = 20006
+        versionName = "2.0.6"
     }
 
     compileOptions {
@@ -59,7 +59,8 @@ android {
     buildTypes {
         getByName("release") {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             signingConfig = signingConfigs.getByName("release")
         }
     }
