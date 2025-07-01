@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties;
 
 plugins {
@@ -32,14 +33,14 @@ if (localProperties.exists()) {
 
 android {
     namespace = "com.prof18.secureqrreader"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 20006
-        versionName = "2.0.6"
+        targetSdk = 36
+        versionCode = 20007
+        versionName = "2.0.7"
     }
 
     compileOptions {
@@ -69,8 +70,8 @@ android {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions {
-        jvmTarget = libs.versions.java.get()
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
     }
 }
 
