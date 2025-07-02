@@ -19,12 +19,15 @@ package com.prof18.secureqrreader.screens
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
@@ -34,10 +37,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.prof18.secureqrreader.R.drawable
 import com.prof18.secureqrreader.R.string
@@ -48,9 +53,17 @@ import com.prof18.secureqrreader.style.SecureQrReaderTheme
 internal fun WelcomeScreen(
     onStartClick: () -> Unit = {},
 ) {
+    val configuration = LocalConfiguration.current
+    val padding = if (configuration.orientation   == Configuration.ORIENTATION_LANDSCAPE) {
+        WindowInsets.displayCutout.asPaddingValues()
+    } else {
+        PaddingValues(0.dp)
+    }
     Column(
         modifier = Modifier
             .padding(WindowInsets.navigationBars.asPaddingValues())
+            .padding(WindowInsets.statusBars.asPaddingValues())
+            .padding(padding)
             .fillMaxSize(),
     ) {
         LazyColumn(

@@ -1,6 +1,5 @@
 package com.prof18.secureqrreader.components
 
-import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -20,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.prof18.secureqrreader.R
 import com.prof18.secureqrreader.hasFlash
@@ -29,6 +27,7 @@ import com.prof18.secureqrreader.hasFlash
 internal fun ScanScreenNavigationBar(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
+    usePrimaryColor: Boolean = false,
     setFlashOff: () -> Unit,
     setFlashOn: () -> Unit,
     onAboutClick: () -> Unit,
@@ -37,10 +36,10 @@ internal fun ScanScreenNavigationBar(
         modifier = modifier,
         title = stringResource(id = R.string.app_name),
         backgroundColor = backgroundColor,
-        elevation = 0.dp,
         showBackButton = false,
         showToolbarActions = true,
         showFlashSelector = true,
+        usePrimaryColor = usePrimaryColor,
         setFlashOff = setFlashOff,
         setFlashOn = setFlashOn,
         onAboutClick = onAboutClick
@@ -53,10 +52,10 @@ internal fun NavigationBar(
     title: String,
     backgroundColor: Color,
     showBackButton: Boolean,
-    elevation: Dp = AppBarDefaults.TopAppBarElevation,
     onBackClick: () -> Unit = {},
     showToolbarActions: Boolean,
     showFlashSelector: Boolean,
+    usePrimaryColor: Boolean = false,
     setFlashOff: () -> Unit,
     setFlashOn: () -> Unit,
     onAboutClick: () -> Unit,
@@ -73,13 +72,21 @@ internal fun NavigationBar(
         title = {
             Text(
                 text = title,
-                color = MaterialTheme.colors.onPrimary,
+                color = if (usePrimaryColor) {
+                    MaterialTheme.colors.onPrimary
+                } else {
+                    MaterialTheme.colors.onBackground
+                },
                 style = MaterialTheme.typography.h6,
             )
         },
         backgroundColor = backgroundColor,
-        elevation = elevation,
-        contentColor = MaterialTheme.colors.onPrimary,
+        elevation = 0.dp,
+        contentColor = if (usePrimaryColor) {
+            MaterialTheme.colors.onPrimary
+        } else {
+            MaterialTheme.colors.onBackground
+        },
         navigationIcon = if (showBackButton) {
             {
                 IconButton(onClick = onBackClick) {
@@ -125,7 +132,11 @@ internal fun NavigationBar(
                     Icon(
                         Outlined.Info,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = if (usePrimaryColor) {
+                            Color.White
+                        } else {
+                            MaterialTheme.colors.onBackground
+                        },
                     )
                 }
             }

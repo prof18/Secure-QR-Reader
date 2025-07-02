@@ -165,7 +165,6 @@ private fun ScanView(
                 setFlashOn = { compoundBarcodeView.setTorchOn() },
                 setFlashOff = { compoundBarcodeView.setTorchOff() },
                 onAboutClick = onAboutClick,
-
                 )
         }
     }
@@ -194,6 +193,7 @@ private fun ScanPortraitView(
                 modifier = Modifier
                     .padding(WindowInsets.statusBars.asPaddingValues()),
                 backgroundColor = Color.Transparent,
+                usePrimaryColor = true,
                 setFlashOn = setFlashOn,
                 setFlashOff = setFlashOff,
                 onAboutClick = onAboutClick,
@@ -225,7 +225,7 @@ private fun ScanLandscapeView(
         ScanScreenNavigationBar(
             modifier = Modifier
                 .padding(WindowInsets.statusBars.asPaddingValues()),
-            backgroundColor = toolbarColor(),
+            backgroundColor = MaterialTheme.colors.background,
             setFlashOn = setFlashOn,
             setFlashOff = setFlashOff,
             onAboutClick = onAboutClick,

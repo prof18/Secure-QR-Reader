@@ -18,12 +18,12 @@ package com.prof18.secureqrreader.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.prof18.secureqrreader.R
-import com.prof18.secureqrreader.style.toolbarColor
 
 @Composable
 fun AboutScreenScaffold(
@@ -104,7 +104,7 @@ private fun AppScaffold(
             NavigationBar(
                 Modifier.systemBarsPadding(),
                 title = title,
-                backgroundColor = toolbarColor(),
+                backgroundColor = MaterialTheme.colors.background,
                 showBackButton = showBackButton,
                 onBackClick = onBackClick,
                 showToolbarActions = showToolbarActions,

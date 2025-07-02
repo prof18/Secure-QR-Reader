@@ -16,7 +16,12 @@
 
 package com.prof18.secureqrreader.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -27,6 +32,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
 import com.prof18.secureqrreader.components.LibrariesScreenScaffold
 import com.prof18.secureqrreader.style.Margins
@@ -40,8 +47,17 @@ fun LibrariesScreen(
         LibrariesScreenScaffold(
             onBackClick = onBackClick
         ) { paddingValues ->
+            val configuration = LocalConfiguration.current
+
+            val padding = if (configuration.orientation   == Configuration.ORIENTATION_LANDSCAPE) {
+                WindowInsets.displayCutout.asPaddingValues()
+            } else {
+                PaddingValues(0.dp)
+            }
             Column(
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(padding)
             ) {
                 Text(
                     modifier = Modifier

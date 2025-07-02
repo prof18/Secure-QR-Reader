@@ -18,7 +18,11 @@ package com.prof18.secureqrreader.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -42,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.prof18.secureqrreader.R.string
 import com.prof18.secureqrreader.components.AboutScreenScaffold
 import com.prof18.secureqrreader.style.Margins
@@ -75,8 +80,17 @@ private fun LandscapeView(
     licensesClicked: () -> Unit,
     nameClicked: () -> Unit,
 ) {
+    val configuration = LocalConfiguration.current
+    val padding = if (configuration.orientation   == Configuration.ORIENTATION_LANDSCAPE) {
+        WindowInsets.displayCutout.asPaddingValues()
+    } else {
+        PaddingValues(0.dp)
+    }
+
     Row(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
             .navigationBarsPadding(),
     ) {
         LazyColumn(

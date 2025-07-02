@@ -18,6 +18,7 @@ package com.prof18.secureqrreader
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -25,10 +26,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -47,7 +49,6 @@ import com.prof18.secureqrreader.screens.ScanScreen
 import com.prof18.secureqrreader.screens.SplashScreen
 import com.prof18.secureqrreader.screens.WelcomeScreen
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
-import com.prof18.secureqrreader.style.toolbarColor
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -59,42 +60,51 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { !dismissSplashScreen }
 
-        enableEdgeToEdge()
-
         super.onCreate(savedInstanceState)
 
         setContent {
             val navController = rememberNavController()
             val scope = rememberCoroutineScope()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val isDarkTheme = isSystemInDarkTheme()
+
+            val defaultSystemBarStyle = SystemBarStyle.auto(
+                android.graphics.Color.TRANSPARENT,
+                darkScrim = android.graphics.Color.TRANSPARENT,
+                detectDarkMode = { isDarkTheme },
+            )
+            var systemBarStyle by remember {
+                mutableStateOf(
+                    defaultSystemBarStyle
+                )
+            }
 
             var scanResult by rememberSaveable {
                 mutableStateOf<String?>(null)
             }
+            val configuration = LocalConfiguration.current
 
             LaunchedEffect(Unit) {
-                navController.addOnDestinationChangedListener { _, destination, _ ->
-                    dismissSplashScreen = destination.route != Screen.Splash.name
+                navController.currentBackStackEntryFlow.collect { destination ->
+                    Log.d("Tag", "Got destination change: $destination")
+                    dismissSplashScreen = destination.destination.route != Screen.Splash.name
+
+                    systemBarStyle = when (destination.destination.route) {
+                        Screen.ScanScreen.name -> {
+                            when (configuration.orientation) {
+                                Configuration.ORIENTATION_LANDSCAPE -> defaultSystemBarStyle
+                                else -> SystemBarStyle.dark(
+                                    android.graphics.Color.TRANSPARENT,
+                                )
+                            }
+                        }
+
+                        else -> defaultSystemBarStyle
+                    }
                 }
             }
 
             SecureQrReaderTheme {
-                val toolbarColor = toolbarColor()
-                val splashScreenColor = MaterialTheme.colors.background
-                val configuration = LocalConfiguration.current
-
-                val statusBarColor = when (navBackStackEntry?.destination?.route) {
-                    Screen.WelcomeScreen.name -> splashScreenColor
-                    Screen.ScanScreen.name -> {
-                        when (configuration.orientation) {
-                            Configuration.ORIENTATION_LANDSCAPE -> toolbarColor
-                            else -> Color.Transparent
-                        }
-                    }
-
-                    else -> toolbarColor
-                }
-
                 val navigationBarStyle =
                     if (navBackStackEntry?.destination?.route == Screen.ScanScreen.name && configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                         SystemBarStyle.dark(
@@ -108,9 +118,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                 enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.dark(
-                        statusBarColor.toArgb(),
-                    ),
+                    statusBarStyle = systemBarStyle,
                     navigationBarStyle = navigationBarStyle,
                 )
 
