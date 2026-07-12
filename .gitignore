@@ -15,3 +15,6 @@
 /.idea/
 /app/release/app-release.aab
 keystore.properties
+play_config.json
+.kotlin
+.tmp
