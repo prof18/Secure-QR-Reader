@@ -33,8 +33,8 @@ private val LightThemeColors = lightColors(
     error = LightAppColors.error,
     onPrimary = LightAppColors.onPrimary,
     onSecondary = LightAppColors.onSecondary,
-//    onBackground = LightAppColors.onBackground,
-//    onSurface = LightAppColors.onSurface,
+    onBackground = LightAppColors.onBackground,
+    onSurface = LightAppColors.onSurface,
     onError = LightAppColors.onError,
 )
 

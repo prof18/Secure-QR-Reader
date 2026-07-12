@@ -21,7 +21,10 @@ import androidx.compose.material.Shapes
 import androidx.compose.ui.unit.dp
 
 internal val SecureQrReaderShapes = Shapes(
-    small = RoundedCornerShape(16.dp),
+    small = RoundedCornerShape(12.dp),
     medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(16.dp)
+    large = RoundedCornerShape(22.dp)
 )
+
+internal val CardShape = RoundedCornerShape(22.dp)
+internal val PillShape = RoundedCornerShape(percent = 50)

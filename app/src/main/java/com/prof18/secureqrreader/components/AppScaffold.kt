@@ -104,7 +104,7 @@ private fun AppScaffold(
             NavigationBar(
                 Modifier.systemBarsPadding(),
                 title = title,
-                backgroundColor = MaterialTheme.colors.background,
+                backgroundColor = MaterialTheme.colors.surface,
                 showBackButton = showBackButton,
                 onBackClick = onBackClick,
                 showToolbarActions = showToolbarActions,
