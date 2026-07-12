@@ -32,4 +32,22 @@
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="scan_instructions">Просто поместите QR-код в рамку и он будет распознан автоматически</string>
     <string name="scan_privacy_chip">Ничего не покидает ваш телефон</string>
+    <string name="scan_result_title">Результат сканирования</string>
+    <string name="qr_type_link">Ссылка</string>
+    <string name="qr_type_wifi">Сеть Wi-Fi</string>
+    <string name="qr_type_contact">Контакт</string>
+    <string name="qr_type_text">Текст</string>
+    <string name="qr_detected_now">Только что обнаружено</string>
+    <string name="qr_link_verify_note">Проверьте домен перед открытием — ссылки могут быть замаскированы.</string>
+    <string name="qr_wifi_security">Защита</string>
+    <string name="qr_wifi_password">Пароль</string>
+    <string name="qr_wifi_no_password">Без пароля</string>
+    <string name="qr_show_password">Показать пароль</string>
+    <string name="qr_hide_password">Скрыть пароль</string>
+    <string name="qr_contact_phone">Телефон</string>
+    <string name="qr_contact_email">Эл. почта</string>
+    <string name="qr_action_open_link">Открыть ссылку</string>
+    <string name="qr_action_connect">Подключиться</string>
+    <string name="qr_action_add_contact">Добавить в контакты</string>
+    <string name="qr_action_copy_password">Скопировать пароль</string>
 </resources>

@@ -24,9 +24,10 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.net.wifi.WifiNetworkSuggestion
+import android.os.Build
+import android.provider.ContactsContract
 import android.provider.Settings
-import android.util.Patterns
-import android.widget.Toast
 
 fun Context.getActivity(): Activity? {
     var currentContext = this
@@ -51,15 +52,56 @@ fun goToAppSettings(context: Context) {
     context.startActivity(intent)
 }
 
-fun isUrl(qrResult: String?): Boolean {
-    val url = qrResult ?: return false
-    return Patterns.WEB_URL.matcher(url).matches()
-}
-
 fun openUrl(qrResult: String?, context: Context) {
     val url = qrResult ?: return
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     context.startActivity(browserIntent)
+}
+
+fun connectToWifi(
+    ssid: String,
+    security: String,
+    password: String?,
+    context: Context,
+) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !security.equals("WEP", true)) {
+        val suggestion = runCatching {
+            WifiNetworkSuggestion.Builder()
+                .setSsid(ssid)
+                .apply {
+                    if (password != null && !security.equals("Open", true)) {
+                        setWpa2Passphrase(password)
+                    }
+                }
+                .build()
+        }.getOrNull()
+        if (suggestion != null) {
+            val addNetworkIntent = Intent(Settings.ACTION_WIFI_ADD_NETWORKS).apply {
+                putParcelableArrayListExtra(
+                    Settings.EXTRA_WIFI_NETWORK_LIST,
+                    arrayListOf(suggestion),
+                )
+            }
+            if (runCatching { context.startActivity(addNetworkIntent) }.isSuccess) return
+        }
+    }
+
+    context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+}
+
+fun addContact(
+    name: String,
+    phone: String?,
+    email: String?,
+    context: Context,
+) {
+    val intent = Intent(ContactsContract.Intents.Insert.ACTION).apply {
+        type = ContactsContract.Contacts.CONTENT_TYPE
+        putExtra(ContactsContract.Intents.Insert.NAME, name)
+        phone?.let { putExtra(ContactsContract.Intents.Insert.PHONE, it) }
+        email?.let { putExtra(ContactsContract.Intents.Insert.EMAIL, it) }
+    }
+    context.startActivity(intent)
 }
 
 fun copyToClipboard(qrResult: String?, context: Context) {

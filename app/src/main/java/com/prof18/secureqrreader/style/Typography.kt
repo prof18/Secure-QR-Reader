@@ -93,8 +93,8 @@ internal val SecureQrReaderTypography = Typography(
     button = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        letterSpacing = 1.25.sp
+        fontSize = 16.sp,
+        letterSpacing = 0.5.sp
     ),
     caption = TextStyle(
         fontFamily = Poppins,

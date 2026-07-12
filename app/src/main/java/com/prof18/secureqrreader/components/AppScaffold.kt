@@ -61,6 +61,7 @@ fun ResultScreenScaffold(
     onAboutClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
+    title = stringResource(id = R.string.scan_result_title),
     showBackButton = true,
     showToolbarActions = true,
     showFlashSelector = false,

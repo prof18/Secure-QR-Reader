@@ -21,7 +21,55 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+
+@Immutable
+internal data class SecureQrReaderCustomColors(
+    val primaryContainer: Color,
+    val onPrimaryContainer: Color,
+    val surfaceVariant: Color,
+    val onSurfaceVariant: Color,
+    val outline: Color,
+    val divider: Color,
+    val scanAccent: Color,
+    val caution: Color,
+    val cautionText: Color,
+)
+
+private val LightCustomColors = SecureQrReaderCustomColors(
+    primaryContainer = LightAppColors.primaryContainer,
+    onPrimaryContainer = LightAppColors.onPrimaryContainer,
+    surfaceVariant = LightAppColors.surfaceVariant,
+    onSurfaceVariant = LightAppColors.onSurfaceVariant,
+    outline = LightAppColors.outline,
+    divider = LightAppColors.divider,
+    scanAccent = LightAppColors.scanAccent,
+    caution = LightAppColors.caution,
+    cautionText = LightAppColors.cautionText,
+)
+
+private val DarkCustomColors = SecureQrReaderCustomColors(
+    primaryContainer = DarkAppColors.primaryContainer,
+    onPrimaryContainer = DarkAppColors.onPrimaryContainer,
+    surfaceVariant = DarkAppColors.surfaceVariant,
+    onSurfaceVariant = DarkAppColors.onSurfaceVariant,
+    outline = DarkAppColors.outline,
+    divider = DarkAppColors.divider,
+    scanAccent = DarkAppColors.scanAccent,
+    caution = DarkAppColors.caution,
+    cautionText = DarkAppColors.cautionText,
+)
+
+private val LocalCustomColors = staticCompositionLocalOf { LightCustomColors }
+
+internal val MaterialTheme.customColors: SecureQrReaderCustomColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalCustomColors.current
 
 private val LightThemeColors = lightColors(
     primary = LightAppColors.primary,
@@ -58,12 +106,16 @@ internal fun SecureQrReaderTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    MaterialTheme(
-        colors = if (darkTheme) DarkThemeColors else LightThemeColors,
-        typography = SecureQrReaderTypography,
-        shapes = SecureQrReaderShapes,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalCustomColors provides if (darkTheme) DarkCustomColors else LightCustomColors,
+    ) {
+        MaterialTheme(
+            colors = if (darkTheme) DarkThemeColors else LightThemeColors,
+            typography = SecureQrReaderTypography,
+            shapes = SecureQrReaderShapes,
+            content = content
+        )
+    }
 }
 
 @Composable

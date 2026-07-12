@@ -37,5 +37,23 @@
     <string name="unespected_error">Scusami, è successo qualcosa di inaspettato. Per favore riprova</string>
     <string name="turn_off_flash">Spegni flash</string>
     <string name="browser_not_found_url">Non riesco a trovare un web broswer per aprire il link :(</string>
+    <string name="scan_result_title">Risultato scansione</string>
+    <string name="qr_type_link">Link</string>
+    <string name="qr_type_wifi">Rete Wi-Fi</string>
+    <string name="qr_type_contact">Contatto</string>
+    <string name="qr_type_text">Testo</string>
+    <string name="qr_detected_now">Rilevato ora</string>
+    <string name="qr_link_verify_note">Controlla il dominio prima di aprire — i link possono essere camuffati.</string>
+    <string name="qr_wifi_security">Sicurezza</string>
+    <string name="qr_wifi_password">Password</string>
+    <string name="qr_wifi_no_password">Nessuna password</string>
+    <string name="qr_show_password">Mostra password</string>
+    <string name="qr_hide_password">Nascondi password</string>
+    <string name="qr_contact_phone">Telefono</string>
+    <string name="qr_contact_email">Email</string>
+    <string name="qr_action_open_link">Apri link</string>
+    <string name="qr_action_connect">Connetti</string>
+    <string name="qr_action_add_contact">Aggiungi ai contatti</string>
+    <string name="qr_action_copy_password">Copia password</string>
 
 </resources>

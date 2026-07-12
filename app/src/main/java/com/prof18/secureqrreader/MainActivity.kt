@@ -182,10 +182,15 @@ class MainActivity : ComponentActivity() {
                     composable(Screen.ResultScreen.name) {
                         ResultScreen(
                             scanResult = scanResult,
-                            isUrl = isUrl(scanResult),
-                            onOpenButtonClick = { openUrl(scanResult, this@MainActivity) },
-                            onCopyButtonClick = { copyToClipboard(scanResult, this@MainActivity) },
-                            onShareButtonClick = { shareResult(scanResult, this@MainActivity) },
+                            onOpenButtonClick = { openUrl(it, this@MainActivity) },
+                            onConnectButtonClick = { ssid, security, password ->
+                                connectToWifi(ssid, security, password, this@MainActivity)
+                            },
+                            onAddContactButtonClick = { name, phone, email ->
+                                addContact(name, phone, email, this@MainActivity)
+                            },
+                            onCopyButtonClick = { copyToClipboard(it, this@MainActivity) },
+                            onShareButtonClick = { shareResult(it, this@MainActivity) },
                             onScanAnotherButtonClick = { navController.popBackStack() },
                             onAboutClick = { navController.navigate(Screen.AboutScreen.name) },
                             onBackClick = { navController.popBackStack() }

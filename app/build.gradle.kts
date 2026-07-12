@@ -90,5 +90,5 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.zxing.android.embedded)
     implementation(libs.bundles.about.libraries)
+    testImplementation(kotlin("test"))
 }
-
