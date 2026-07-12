@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.about.libraries)
     alias(libs.plugins.triplet.play)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.baseline.profile)
 }
 
 val local = Properties()
@@ -83,4 +84,5 @@ dependencies {
     implementation(libs.zxing.android.embedded)
     implementation(libs.bundles.about.libraries)
     testImplementation(libs.kotlin.test.junit)
+    baselineProfile(project(":baseline-profile"))
 }

@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10")
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.about.libraries) apply false
     alias(libs.plugins.triplet.play) apply false
+    alias(libs.plugins.android.test) apply false
+    alias(libs.plugins.baseline.profile) apply false
 }

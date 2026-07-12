@@ -34,3 +34,4 @@ rootProject.name = "secure-qr-reader"
 
 
 include(":app")
+include(":baseline-profile")
