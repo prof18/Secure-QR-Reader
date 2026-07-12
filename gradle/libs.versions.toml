@@ -10,7 +10,7 @@ kotlin = "2.2.0"
 nav-compose = "2.9.0"
 splashscreen = "1.0.1"
 zxing-android-embedded = "4.3.0"
-androidx-compose-bom = "2025.06.01"
+androidx-compose-bom = "2026.06.00"
 triplet-play = "3.12.1"
 
 [libraries]
