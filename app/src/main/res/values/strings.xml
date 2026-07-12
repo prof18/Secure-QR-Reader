@@ -64,7 +64,7 @@
     <string name="about_paragraph_two">There aren\'t ads, trackers of any sort and what do you scan remains on your phone</string>
     <string name="about_chip_no_ads">No ads</string>
     <string name="about_chip_no_trackers">No trackers</string>
-    <string name="about_chip_on_device">100% on-device</string>
+    <string name="about_chip_on_device" formatted="false">100% on-device</string>
     <string name="about_footer_prefix">Developed with</string>
     <string name="about_footer_connector">by</string>
 </resources>

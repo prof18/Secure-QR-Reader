@@ -32,6 +32,10 @@
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="scan_instructions">Просто поместите QR-код в рамку и он будет распознан автоматически</string>
     <string name="scan_privacy_chip">Ничего не покидает ваш телефон</string>
+    <string name="request_permission">Запросить разрешение</string>
+    <string name="unespected_error">Извините, произошла непредвиденная ошибка. Попробуйте ещё раз</string>
+    <string name="turn_off_flash">Выключить вспышку</string>
+    <string name="browser_not_found_url">Не удалось найти браузер для открытия ссылки :(</string>
     <string name="scan_result_title">Результат сканирования</string>
     <string name="qr_type_link">Ссылка</string>
     <string name="qr_type_wifi">Сеть Wi-Fi</string>
@@ -60,7 +64,7 @@
     <string name="about_paragraph_two">В нем также нет рекламы, трекеров, и то, что вы сканируете, остается только на вашем смартфоне.</string>
     <string name="about_chip_no_ads">Без рекламы</string>
     <string name="about_chip_no_trackers">Без трекеров</string>
-    <string name="about_chip_on_device">100% на устройстве</string>
+    <string name="about_chip_on_device" formatted="false">100% на устройстве</string>
     <string name="about_footer_prefix">Разработано с</string>
     <string name="about_footer_connector"></string>
 </resources>

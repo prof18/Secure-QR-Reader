@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <color name="colorBackground">#121212</color>igra
-    <color name="colorOnBackground">#f0f4f8</color>
-    <color name="toolbarColor">#102a43</color>
+    <color name="colorBackground">#0F1512</color>
+    <color name="colorOnBackground">#E0E8E0</color>
+    <color name="toolbarColor">#0F1512</color>
 </resources>

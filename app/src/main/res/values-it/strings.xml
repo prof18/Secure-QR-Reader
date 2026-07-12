@@ -65,7 +65,7 @@
     <string name="about_paragraph_two">Non ci sono pubblicità, i dati non vengono tracciati e quello che scansioni rimane nel tuo cellulare.</string>
     <string name="about_chip_no_ads">Niente pubblicità</string>
     <string name="about_chip_no_trackers">Nessun tracciamento</string>
-    <string name="about_chip_on_device">100% sul dispositivo</string>
+    <string name="about_chip_on_device" formatted="false">100% sul dispositivo</string>
     <string name="about_footer_prefix">Sviluppata con</string>
     <string name="about_footer_connector">da</string>
 
