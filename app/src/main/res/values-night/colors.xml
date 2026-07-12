@@ -17,6 +17,4 @@
 
 <resources>
     <color name="colorBackground">#0F1512</color>
-    <color name="colorOnBackground">#E0E8E0</color>
-    <color name="toolbarColor">#0F1512</color>
 </resources>
