@@ -60,5 +60,13 @@
     <string name="welcome_promise_no_permissions">Nessun permesso sospetto</string>
     <string name="welcome_promise_on_device">Tutto rimane sul tuo telefono</string>
     <string name="welcome_start_scanning">Inizia a scansionare</string>
+    <string name="about_headline">Non installare virus sul tuo telefono!</string>
+    <string name="about_paragraph_one">Questo lettore di codici QR non richiede permessi strani ed inutili solo per rubare i tuoi dati.</string>
+    <string name="about_paragraph_two">Non ci sono pubblicità, i dati non vengono tracciati e quello che scansioni rimane nel tuo cellulare.</string>
+    <string name="about_chip_no_ads">Niente pubblicità</string>
+    <string name="about_chip_no_trackers">Nessun tracciamento</string>
+    <string name="about_chip_on_device">100% sul dispositivo</string>
+    <string name="about_footer_prefix">Sviluppata con</string>
+    <string name="about_footer_connector">da</string>
 
 </resources>

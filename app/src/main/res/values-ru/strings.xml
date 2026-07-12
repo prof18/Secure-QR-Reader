@@ -55,4 +55,12 @@
     <string name="welcome_promise_no_permissions">Без скрытых разрешений</string>
     <string name="welcome_promise_on_device">Всё остаётся на вашем телефоне</string>
     <string name="welcome_start_scanning">Начать сканирование</string>
+    <string name="about_headline">Не устанавливайте неизвестные приложения на ваш смартфон!</string>
+    <string name="about_paragraph_one">Данное приложение не запрашивает никаких скрытых и ненужных разрешений для кражи ваших данных.</string>
+    <string name="about_paragraph_two">В нем также нет рекламы, трекеров, и то, что вы сканируете, остается только на вашем смартфоне.</string>
+    <string name="about_chip_no_ads">Без рекламы</string>
+    <string name="about_chip_no_trackers">Без трекеров</string>
+    <string name="about_chip_on_device">100% на устройстве</string>
+    <string name="about_footer_prefix">Разработано с</string>
+    <string name="about_footer_connector"></string>
 </resources>

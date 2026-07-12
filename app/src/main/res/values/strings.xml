@@ -59,4 +59,12 @@
     <string name="welcome_promise_no_permissions">No sneaky permissions</string>
     <string name="welcome_promise_on_device">Everything stays on your phone</string>
     <string name="welcome_start_scanning">Start scanning</string>
+    <string name="about_headline">Don\'t install spyware on your phone!</string>
+    <string name="about_paragraph_one">This QR reader does not require sneaky, strange and useless permissions just for the sake of stealing your data.</string>
+    <string name="about_paragraph_two">There aren\'t ads, trackers of any sort and what do you scan remains on your phone</string>
+    <string name="about_chip_no_ads">No ads</string>
+    <string name="about_chip_no_trackers">No trackers</string>
+    <string name="about_chip_on_device">100% on-device</string>
+    <string name="about_footer_prefix">Developed with</string>
+    <string name="about_footer_connector">by</string>
 </resources>

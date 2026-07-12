@@ -17,40 +17,47 @@
 package com.prof18.secureqrreader.screens
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.displayCutout
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Description
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.prof18.secureqrreader.R.string
+import androidx.compose.ui.unit.sp
+import com.prof18.secureqrreader.R
 import com.prof18.secureqrreader.components.AboutScreenScaffold
 import com.prof18.secureqrreader.style.Margins
+import com.prof18.secureqrreader.style.PillShape
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
+import com.prof18.secureqrreader.style.customColors
 
 @Composable
 fun AboutScreen(
@@ -59,196 +66,175 @@ fun AboutScreen(
     nameClicked: () -> Unit = {},
     onBackPressed: () -> Unit = {},
 ) {
-    AboutScreenScaffold(
-        onBackClick = onBackPressed,
-    ) {
-        val configuration = LocalConfiguration.current
-        when (configuration.orientation) {
-            Configuration.ORIENTATION_LANDSCAPE -> {
-                LandscapeView(showOnGithubClicked, licensesClicked, nameClicked)
-            }
-            else -> {
-                PortraitView(showOnGithubClicked, licensesClicked, nameClicked)
-            }
-        }
-    }
-}
-
-@Composable
-private fun LandscapeView(
-    showOnGithubClicked: () -> Unit,
-    licensesClicked: () -> Unit,
-    nameClicked: () -> Unit,
-) {
-    val configuration = LocalConfiguration.current
-    val padding = if (configuration.orientation   == Configuration.ORIENTATION_LANDSCAPE) {
-        WindowInsets.displayCutout.asPaddingValues()
-    } else {
-        PaddingValues(0.dp)
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding)
-            .navigationBarsPadding(),
-    ) {
-        LazyColumn(
-            modifier = Modifier.weight(1f)
-        ) {
-            item {
-                AboutTextItem(
-                    modifier = Modifier.padding(Margins.regular),
-                )
-            }
-        }
-
-        LazyColumn(
-            modifier = Modifier.weight(2f)
-        ) {
-            item {
-                AboutButtonItem(
-                    onClick = showOnGithubClicked,
-                    buttonText = stringResource(id = string.show_on_github)
-                )
-            }
-            item {
-                AboutButtonItem(
-                    onClick = licensesClicked,
-                    buttonText = stringResource(id = string.open_source_licenses)
-                )
-            }
-            item {
-                AuthorText(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentWidth(align = Alignment.CenterHorizontally),
-                    nameClicked = nameClicked
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun PortraitView(
-    showOnGithubClicked: () -> Unit,
-    licensesClicked: () -> Unit,
-    nameClicked: () -> Unit,
-) {
-    Column(
-        modifier = Modifier.fillMaxSize()
-            .navigationBarsPadding(),
-    ) {
-        LazyColumn(
-            modifier = Modifier.weight(1f)
-        ) {
-            item {
-                AboutTextItem(
-                    modifier = Modifier.padding(Margins.regular),
-                )
-            }
-            item {
-                AboutButtonItem(
-                    onClick = showOnGithubClicked,
-                    buttonText = stringResource(id = string.show_on_github)
-                )
-            }
-            item {
-                AboutButtonItem(
-                    onClick = licensesClicked,
-                    buttonText = stringResource(id = string.open_source_licenses)
-                )
-            }
-        }
-        AuthorText(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+    AboutScreenScaffold(onBackClick = onBackPressed) { scaffoldPadding ->
+        AboutContent(
+            scaffoldPadding = scaffoldPadding,
+            showOnGithubClicked = showOnGithubClicked,
+            licensesClicked = licensesClicked,
             nameClicked = nameClicked,
         )
     }
 }
 
 @Composable
-private fun AuthorText(nameClicked: () -> Unit, modifier: Modifier = Modifier) {
-    AnnotatedClickableText(
-        modifier = modifier
-            .padding(Margins.big),
-        onTextClick = nameClicked
-    )
-}
-
-@Composable
-private fun AboutButtonItem(
-    onClick: () -> Unit,
-    buttonText: String,
+private fun AboutContent(
+    scaffoldPadding: PaddingValues,
+    showOnGithubClicked: () -> Unit,
+    licensesClicked: () -> Unit,
+    nameClicked: () -> Unit,
 ) {
-    Button(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Margins.regular)
-            .padding(vertical = Margins.small),
-        onClick = onClick
+            .fillMaxSize()
+            .padding(scaffoldPadding)
+            .navigationBarsPadding(),
     ) {
-        Text(buttonText)
-    }
-}
-
-@Composable
-private fun AboutTextItem(
-    modifier: Modifier = Modifier,
-) {
-    Text(
-        modifier = modifier,
-        color = MaterialTheme.colors.onBackground,
-        text = stringResource(id = string.welcome_screen_content),
-        style = MaterialTheme.typography.body1,
-    )
-}
-
-@Composable
-private fun AnnotatedClickableText(
-    modifier: Modifier = Modifier,
-    onTextClick: () -> Unit,
-) {
-    val annotatedText = buildAnnotatedString {
-        append(stringResource(id = string.author_label))
-
-        pushStringAnnotation(
-            tag = "URL",
-            annotation = "https://www.marcogomiero.com"
-        )
-        withStyle(
-            style = SpanStyle(
-                color = Color.Blue,
-                fontWeight = FontWeight.Bold
-            )
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = Margins.medium)
+                .padding(top = Margins.regular, bottom = Margins.medium),
         ) {
-            append(" Marco Gomiero")
-        }
-
-        pop()
-    }
-
-    ClickableText(
-        modifier = modifier,
-        text = annotatedText,
-        style = MaterialTheme.typography.body1.copy(
-            color = MaterialTheme.colors.onBackground,
-        ),
-        onClick = { offset ->
-            annotatedText.getStringAnnotations(
-                tag = "URL",
-                start = offset,
-                end = offset,
-            ).firstOrNull()?.let {
-                onTextClick()
+            Text(
+                text = stringResource(R.string.about_headline),
+                color = MaterialTheme.colors.onSurface,
+                style = MaterialTheme.typography.h4.copy(
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    letterSpacing = (-0.3).sp,
+                ),
+            )
+            Text(
+                modifier = Modifier.padding(top = Margins.small),
+                text = stringResource(R.string.about_paragraph_one),
+                color = MaterialTheme.customColors.onSurfaceVariant,
+                style = MaterialTheme.typography.body1.copy(fontSize = 15.sp),
+            )
+            Text(
+                modifier = Modifier.padding(top = 14.dp),
+                text = stringResource(R.string.about_paragraph_two),
+                color = MaterialTheme.customColors.onSurfaceVariant,
+                style = MaterialTheme.typography.body1.copy(fontSize = 15.sp),
+            )
+            FlowRow(
+                modifier = Modifier.padding(top = 20.dp),
+                horizontalArrangement = Arrangement.spacedBy(Margins.small),
+                verticalArrangement = Arrangement.spacedBy(Margins.small),
+            ) {
+                AboutChip(text = stringResource(R.string.about_chip_no_ads))
+                AboutChip(text = stringResource(R.string.about_chip_no_trackers))
+                AboutChip(text = stringResource(R.string.about_chip_on_device))
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = Margins.medium)
+                    .fillMaxWidth()
+                    .height(54.dp),
+                shape = PillShape,
+                onClick = showOnGithubClicked,
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    painter = painterResource(R.drawable.ic_github),
+                    contentDescription = null,
+                )
+                Text(
+                    modifier = Modifier.padding(start = Margins.small),
+                    text = stringResource(R.string.show_on_github),
+                )
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .height(54.dp),
+                shape = PillShape,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = MaterialTheme.customColors.primaryContainer,
+                    contentColor = MaterialTheme.customColors.onPrimaryContainer,
+                ),
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 0.dp,
+                    disabledElevation = 0.dp,
+                ),
+                onClick = licensesClicked,
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    imageVector = Icons.Outlined.Description,
+                    contentDescription = null,
+                )
+                Text(
+                    modifier = Modifier.padding(start = Margins.small),
+                    text = stringResource(R.string.open_source_licenses),
+                )
             }
         }
-    )
+        AttributionFooter(nameClicked = nameClicked)
+    }
 }
 
+@Composable
+private fun AboutChip(text: String) {
+    Surface(
+        color = MaterialTheme.customColors.primaryContainer,
+        shape = CircleShape,
+        elevation = 0.dp,
+    ) {
+        Text(
+            modifier = Modifier.padding(horizontal = 13.dp, vertical = 7.dp),
+            text = text,
+            color = MaterialTheme.customColors.onPrimaryContainer,
+            style = MaterialTheme.typography.caption.copy(fontWeight = FontWeight.SemiBold),
+        )
+    }
+}
+
+@Composable
+private fun AttributionFooter(nameClicked: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = Margins.medium)
+            .padding(top = Margins.regular, bottom = 22.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(R.string.about_footer_prefix),
+            color = MaterialTheme.customColors.onSurfaceVariant,
+            style = MaterialTheme.typography.body2,
+        )
+        Text(
+            modifier = Modifier.padding(horizontal = 4.dp),
+            text = "♥︎",
+            color = HeartColor,
+            style = MaterialTheme.typography.body2.copy(fontFamily = FontFamily.SansSerif),
+        )
+        val connector = stringResource(R.string.about_footer_connector)
+        if (connector.isNotBlank()) {
+            Text(
+                text = connector,
+                color = MaterialTheme.customColors.onSurfaceVariant,
+                style = MaterialTheme.typography.body2,
+            )
+            Spacer(modifier = Modifier.size(4.dp))
+        }
+        Text(
+            modifier = Modifier.clickable(onClick = nameClicked),
+            text = "Marco Gomiero",
+            color = MaterialTheme.colors.primary,
+            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.SemiBold),
+        )
+    }
+}
+
+private val HeartColor = Color(0xFFE0245E)
+
 @Preview
-@Preview(device = Devices.AUTOMOTIVE_1024p, widthDp = 720, heightDp = 360)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun AboutScreenPreview() {
@@ -258,5 +244,3 @@ private fun AboutScreenPreview() {
         }
     }
 }
-
-

@@ -30,6 +30,7 @@ fun AboutScreenScaffold(
     onBackClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) = AppScaffold(
+    title = stringResource(id = R.string.settings_about),
     showBackButton = true,
     showToolbarActions = false,
     showFlashSelector = false,
