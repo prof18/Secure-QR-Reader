@@ -98,7 +98,7 @@ fun connectToWifi(
     context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
 }
 
-private const val WIFI_NETWORK_REQUEST_CODE = 1_001
+internal const val WIFI_NETWORK_REQUEST_CODE = 1_001
 
 fun addContact(
     name: String,

@@ -16,7 +16,11 @@
 
 package com.prof18.secureqrreader
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -50,6 +54,23 @@ import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+
+    @Deprecated("Required for the Android Wi-Fi add-network settings contract")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (
+            requestCode != WIFI_NETWORK_REQUEST_CODE ||
+            resultCode != Activity.RESULT_OK ||
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+        ) return
+
+        val networkResults = data?.getIntegerArrayListExtra(
+            Settings.EXTRA_WIFI_NETWORK_RESULT_LIST,
+        ).orEmpty()
+        if (networkResults.any { it != Settings.ADD_WIFI_RESULT_SUCCESS }) {
+            startActivity(Intent(Settings.Panel.ACTION_WIFI))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val preferencesWrapper = PreferencesWrapper(this)
