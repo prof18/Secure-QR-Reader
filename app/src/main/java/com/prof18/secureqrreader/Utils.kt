@@ -82,12 +82,23 @@ fun connectToWifi(
                     arrayListOf(suggestion),
                 )
             }
-            if (runCatching { context.startActivity(addNetworkIntent) }.isSuccess) return
+            val activity = context.getActivity()
+            if (
+                activity != null &&
+                runCatching {
+                    @Suppress("DEPRECATION")
+                    activity.startActivityForResult(addNetworkIntent, WIFI_NETWORK_REQUEST_CODE)
+                }.isSuccess
+            ) {
+                return
+            }
         }
     }
 
     context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
 }
+
+private const val WIFI_NETWORK_REQUEST_CODE = 1_001
 
 fun addContact(
     name: String,
