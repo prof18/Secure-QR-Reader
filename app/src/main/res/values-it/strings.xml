@@ -43,7 +43,8 @@
     <string name="qr_type_contact">Contatto</string>
     <string name="qr_type_text">Testo</string>
     <string name="qr_detected_now">Rilevato ora</string>
-    <string name="qr_link_verify_note">Controlla il dominio prima di aprire — i link possono essere camuffati.</string>
+    <string name="qr_link_safety_title">Prima di aprire questo link</string>
+    <string name="qr_link_verify_note">Assicurati di riconoscere il nome del sito web qui sopra.</string>
     <string name="qr_wifi_security">Sicurezza</string>
     <string name="qr_wifi_password">Password</string>
     <string name="qr_wifi_no_password">Nessuna password</string>

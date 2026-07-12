@@ -54,8 +54,8 @@ import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.outlined.Link
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
@@ -284,20 +284,20 @@ private fun UrlCard(content: QrContent.Url) {
                 modifier = Modifier
                     .padding(top = 2.dp)
                     .size(18.dp),
-                imageVector = Icons.Outlined.Lock,
+                imageVector = Icons.Outlined.Shield,
                 contentDescription = null,
-                tint = MaterialTheme.customColors.caution,
+                tint = MaterialTheme.customColors.onSurfaceVariant,
             )
             Column(modifier = Modifier.padding(start = Margins.small)) {
                 Text(
-                    text = content.host,
-                    color = MaterialTheme.customColors.cautionText,
+                    text = stringResource(R.string.qr_link_safety_title),
+                    color = MaterialTheme.colors.onSurface,
                     style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.SemiBold),
                 )
                 Text(
                     modifier = Modifier.padding(top = 3.dp),
                     text = stringResource(R.string.qr_link_verify_note),
-                    color = MaterialTheme.customColors.cautionText,
+                    color = MaterialTheme.customColors.onSurfaceVariant,
                     style = MaterialTheme.typography.caption,
                 )
             }

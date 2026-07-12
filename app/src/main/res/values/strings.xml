@@ -42,7 +42,8 @@
     <string name="qr_type_contact">Contact</string>
     <string name="qr_type_text">Text</string>
     <string name="qr_detected_now">Detected just now</string>
-    <string name="qr_link_verify_note">Check the domain before opening — links can be disguised.</string>
+    <string name="qr_link_safety_title">Before you open this link</string>
+    <string name="qr_link_verify_note">Make sure you recognize the website name above.</string>
     <string name="qr_wifi_security">Security</string>
     <string name="qr_wifi_password">Password</string>
     <string name="qr_wifi_no_password">No password</string>

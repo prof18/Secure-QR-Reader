@@ -42,7 +42,8 @@
     <string name="qr_type_contact">Контакт</string>
     <string name="qr_type_text">Текст</string>
     <string name="qr_detected_now">Только что обнаружено</string>
-    <string name="qr_link_verify_note">Проверьте домен перед открытием — ссылки могут быть замаскированы.</string>
+    <string name="qr_link_safety_title">Перед открытием ссылки</string>
+    <string name="qr_link_verify_note">Убедитесь, что вы узнаёте название сайта выше.</string>
     <string name="qr_wifi_security">Защита</string>
     <string name="qr_wifi_password">Пароль</string>
     <string name="qr_wifi_no_password">Без пароля</string>
