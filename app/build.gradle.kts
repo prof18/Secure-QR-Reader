@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties;
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.about.libraries)
     alias(libs.plugins.triplet.play)
     alias(libs.plugins.compose.compiler)
@@ -69,12 +67,6 @@ android {
     buildFeatures { compose = true }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_11)
-    }
-}
-
 play {
     // The play_config.json file will be provided on CI
     serviceAccountCredentials.set(file("../play_config.json"))
@@ -90,5 +82,5 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.zxing.android.embedded)
     implementation(libs.bundles.about.libraries)
-    testImplementation(kotlin("test"))
+    testImplementation(libs.kotlin.test.junit)
 }

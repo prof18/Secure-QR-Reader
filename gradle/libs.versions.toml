@@ -4,14 +4,14 @@ accompanist-permissions = "0.37.3"
 activity-compose = "1.10.1"
 android-material = "1.5.0"
 datastore = "1.1.7"
-agp = "8.11.0"
+agp = "9.2.1"
 java = "11"
-kotlin = "2.2.0"
+kotlin = "2.3.10"
 nav-compose = "2.9.0"
 splashscreen = "1.0.1"
 zxing-android-embedded = "4.3.0"
 androidx-compose-bom = "2026.06.00"
-triplet-play = "3.12.1"
+triplet-play = "4.0.0"
 
 [libraries]
 about-libraries-compose = { module = "com.mikepenz:aboutlibraries-compose", version.ref="about-libraries" }
@@ -31,6 +31,7 @@ androidx-datastore-preference = { module = "androidx.datastore:datastore-prefere
 androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "nav-compose" }
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref= "zxing-android-embedded"}
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 
 [bundles]
 compose = [
@@ -50,7 +51,6 @@ about-libraries = [ "about-libraries-core", "about-libraries-compose" ]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 about-libraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "about-libraries" }
 triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
