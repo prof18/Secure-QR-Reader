@@ -17,7 +17,7 @@
 package com.prof18.secureqrreader.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -104,7 +104,7 @@ private fun AppScaffold(
     Scaffold(
         topBar = {
             NavigationBar(
-                Modifier.systemBarsPadding(),
+                Modifier.statusBarsPadding(),
                 title = title,
                 backgroundColor = MaterialTheme.colors.surface,
                 showBackButton = showBackButton,
