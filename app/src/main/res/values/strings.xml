@@ -54,4 +54,9 @@
     <string name="qr_action_connect">Connect</string>
     <string name="qr_action_add_contact">Add to contacts</string>
     <string name="qr_action_copy_password">Copy password</string>
+    <string name="welcome_tagline">Don\'t install spyware on your phone. Scan QR codes without sneaky permissions, ads, or trackers.</string>
+    <string name="welcome_promise_no_tracking">No tracking, no ads</string>
+    <string name="welcome_promise_no_permissions">No sneaky permissions</string>
+    <string name="welcome_promise_on_device">Everything stays on your phone</string>
+    <string name="welcome_start_scanning">Start scanning</string>
 </resources>

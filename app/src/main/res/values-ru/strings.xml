@@ -50,4 +50,9 @@
     <string name="qr_action_connect">Подключиться</string>
     <string name="qr_action_add_contact">Добавить в контакты</string>
     <string name="qr_action_copy_password">Скопировать пароль</string>
+    <string name="welcome_tagline">Не устанавливайте шпионские приложения. Сканируйте QR-коды без скрытых разрешений, рекламы и трекеров.</string>
+    <string name="welcome_promise_no_tracking">Без отслеживания и рекламы</string>
+    <string name="welcome_promise_no_permissions">Без скрытых разрешений</string>
+    <string name="welcome_promise_on_device">Всё остаётся на вашем телефоне</string>
+    <string name="welcome_start_scanning">Начать сканирование</string>
 </resources>

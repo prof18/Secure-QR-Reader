@@ -55,5 +55,10 @@
     <string name="qr_action_connect">Connetti</string>
     <string name="qr_action_add_contact">Aggiungi ai contatti</string>
     <string name="qr_action_copy_password">Copia password</string>
+    <string name="welcome_tagline">Non installare spyware sul tuo telefono. Scansiona codici QR senza permessi sospetti, pubblicità o tracciamento.</string>
+    <string name="welcome_promise_no_tracking">Nessun tracciamento o pubblicità</string>
+    <string name="welcome_promise_no_permissions">Nessun permesso sospetto</string>
+    <string name="welcome_promise_on_device">Tutto rimane sul tuo telefono</string>
+    <string name="welcome_start_scanning">Inizia a scansionare</string>
 
 </resources>
