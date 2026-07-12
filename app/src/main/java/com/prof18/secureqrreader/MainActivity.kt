@@ -16,7 +16,6 @@
 
 package com.prof18.secureqrreader
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -36,7 +35,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -82,22 +80,15 @@ class MainActivity : ComponentActivity() {
             var scanResult by rememberSaveable {
                 mutableStateOf<String?>(null)
             }
-            val configuration = LocalConfiguration.current
-
             LaunchedEffect(Unit) {
                 navController.currentBackStackEntryFlow.collect { destination ->
                     Log.d("Tag", "Got destination change: $destination")
                     dismissSplashScreen = destination.destination.route != Screen.Splash.name
 
                     systemBarStyle = when (destination.destination.route) {
-                        Screen.ScanScreen.name -> {
-                            when (configuration.orientation) {
-                                Configuration.ORIENTATION_LANDSCAPE -> defaultSystemBarStyle
-                                else -> SystemBarStyle.dark(
-                                    android.graphics.Color.TRANSPARENT,
-                                )
-                            }
-                        }
+                        Screen.ScanScreen.name -> SystemBarStyle.dark(
+                            android.graphics.Color.TRANSPARENT,
+                        )
 
                         else -> defaultSystemBarStyle
                     }
@@ -106,7 +97,7 @@ class MainActivity : ComponentActivity() {
 
             SecureQrReaderTheme {
                 val navigationBarStyle =
-                    if (navBackStackEntry?.destination?.route == Screen.ScanScreen.name && configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    if (navBackStackEntry?.destination?.route == Screen.ScanScreen.name) {
                         SystemBarStyle.dark(
                             Color.Transparent.toArgb(),
                         )

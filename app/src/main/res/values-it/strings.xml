@@ -32,6 +32,7 @@
     <string name="show_on_github">Mostra su GitHub</string>
     <string name="open_source_licenses">Licenze Open Source</string>
     <string name="scan_instructions">Semplicemente inquadra il QR Code e verrà riconosciuto automaticamente.</string>
+    <string name="scan_privacy_chip">Niente lascia il tuo telefono</string>
     <string name="request_permission">Richiesta permessi</string>
     <string name="unespected_error">Scusami, è successo qualcosa di inaspettato. Per favore riprova</string>
     <string name="turn_off_flash">Spegni flash</string>
