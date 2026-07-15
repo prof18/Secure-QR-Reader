@@ -26,6 +26,15 @@
     <string name="settings_about">Informazioni</string>
     <string name="show_on_github">Mostra su GitHub</string>
     <string name="open_source_licenses">Licenze Open Source</string>
+    <string name="support_the_project">Supporta il progetto</string>
+    <string name="support_thank_you_title">Grazie!</string>
+    <string name="support_thank_you_message">Grazie per il supporto a QR Reader Secure. La tua donazione aiuta a mantenere l’app privata, gratuita e open source.</string>
+    <string name="support_thank_you_confirm">Fatto</string>
+    <string name="support_headline">Mantieni QR Reader Sicuro indipendente</string>
+    <string name="support_description">L’app è gratuita, privata e senza pubblicità. Una donazione una tantum aiuta a sostenere i prossimi miglioramenti.</string>
+    <string name="support_thank_you">Grazie per il tuo supporto!</string>
+    <string name="support_unavailable">Le donazioni non sono disponibili al momento. Riprova più tardi.</string>
+    <string name="support_error">Non è stato possibile completare l’acquisto. Riprova.</string>
     <string name="scan_instructions">Semplicemente inquadra il QR Code e verrà riconosciuto automaticamente.</string>
     <string name="scan_privacy_chip">Niente lascia il tuo telefono</string>
     <string name="request_permission">Richiesta permessi</string>

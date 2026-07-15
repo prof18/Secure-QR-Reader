@@ -25,6 +25,15 @@
     <string name="settings_about">About</string>
     <string name="show_on_github">Show on GitHub</string>
     <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="support_the_project">Support the project</string>
+    <string name="support_thank_you_title">Thank you!</string>
+    <string name="support_thank_you_message">Thanks for supporting QR Reader Secure. Your tip helps keep the app private, free, and open source.</string>
+    <string name="support_thank_you_confirm">Done</string>
+    <string name="support_headline">Keep QR Reader Secure independent</string>
+    <string name="support_description">This app is free, private, and has no ads. A one-time tip helps support future improvements.</string>
+    <string name="support_thank_you">Thank you for supporting the project!</string>
+    <string name="support_unavailable">Tips are not available right now. Please try again later.</string>
+    <string name="support_error">The purchase could not be completed. Please try again.</string>
     <string name="scan_instructions">Frame the QR code — it’s recognized automatically</string>
     <string name="scan_privacy_chip">Nothing leaves your phone</string>
     <string name="request_permission">Request permission</string>

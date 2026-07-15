@@ -30,6 +30,9 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,6 +52,7 @@ import com.prof18.secureqrreader.screens.LibrariesScreen
 import com.prof18.secureqrreader.screens.ResultScreen
 import com.prof18.secureqrreader.screens.ScanScreen
 import com.prof18.secureqrreader.screens.SplashScreen
+import com.prof18.secureqrreader.screens.SupportScreen
 import com.prof18.secureqrreader.screens.WelcomeScreen
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
 import kotlinx.coroutines.launch
@@ -100,6 +104,12 @@ class MainActivity : ComponentActivity() {
 
             var scanResult by rememberSaveable {
                 mutableStateOf<String?>(null)
+            }
+            var showSupportThankYouDialog by rememberSaveable {
+                mutableStateOf(false)
+            }
+            var supportPurchaseStarted by rememberSaveable {
+                mutableStateOf(false)
             }
             LaunchedEffect(Unit) {
                 navController.currentBackStackEntryFlow.collect { destination ->
@@ -220,6 +230,9 @@ class MainActivity : ComponentActivity() {
 
                     composable(Screen.AboutScreen.name) {
                         AboutScreen(
+                            onSupportClick = {
+                                navController.navigate(Screen.SupportScreen.name)
+                            },
                             showOnGithubClicked = {
                                 openUrl(
                                     "https://github.com/prof18/Secure-QR-Reader",
@@ -239,6 +252,20 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
+                    composable(Screen.SupportScreen.name) {
+                        SupportScreen(
+                            onBackPressed = {
+                                if (supportPurchaseStarted) {
+                                    showSupportThankYouDialog = true
+                                    supportPurchaseStarted = false
+                                }
+                                navController.popBackStack()
+                            },
+                            onPurchaseStarted = { supportPurchaseStarted = true },
+                            onPurchaseCancelledOrFailed = { supportPurchaseStarted = false },
+                        )
+                    }
+
                     composable(Screen.LibrariesScreen.name) {
                         LibrariesScreen(
                             onBackClick = {
@@ -246,6 +273,19 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     }
+                }
+
+                if (showSupportThankYouDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showSupportThankYouDialog = false },
+                        title = { Text(text = getString(R.string.support_thank_you_title)) },
+                        text = { Text(text = getString(R.string.support_thank_you_message)) },
+                        confirmButton = {
+                            TextButton(onClick = { showSupportThankYouDialog = false }) {
+                                Text(text = getString(R.string.support_thank_you_confirm))
+                            }
+                        },
+                    )
                 }
             }
         }

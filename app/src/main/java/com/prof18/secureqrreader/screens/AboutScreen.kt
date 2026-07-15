@@ -34,13 +34,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,6 +61,7 @@ import com.prof18.secureqrreader.style.customColors
 
 @Composable
 fun AboutScreen(
+    onSupportClick: () -> Unit = {},
     showOnGithubClicked: () -> Unit = {},
     licensesClicked: () -> Unit = {},
     nameClicked: () -> Unit = {},
@@ -69,6 +70,7 @@ fun AboutScreen(
     AboutScreenScaffold(onBackClick = onBackPressed) { scaffoldPadding ->
         AboutContent(
             scaffoldPadding = scaffoldPadding,
+            onSupportClick = onSupportClick,
             showOnGithubClicked = showOnGithubClicked,
             licensesClicked = licensesClicked,
             nameClicked = nameClicked,
@@ -79,6 +81,7 @@ fun AboutScreen(
 @Composable
 private fun AboutContent(
     scaffoldPadding: PaddingValues,
+    onSupportClick: () -> Unit,
     showOnGithubClicked: () -> Unit,
     licensesClicked: () -> Unit,
     nameClicked: () -> Unit,
@@ -133,6 +136,24 @@ private fun AboutContent(
                     .fillMaxWidth()
                     .height(54.dp),
                 shape = PillShape,
+                onClick = onSupportClick,
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    imageVector = Icons.Outlined.FavoriteBorder,
+                    contentDescription = null,
+                )
+                Text(
+                    modifier = Modifier.padding(start = Margins.small),
+                    text = stringResource(R.string.support_the_project),
+                )
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .height(54.dp),
+                shape = PillShape,
                 onClick = showOnGithubClicked,
             ) {
                 Icon(
@@ -151,15 +172,6 @@ private fun AboutContent(
                     .fillMaxWidth()
                     .height(54.dp),
                 shape = PillShape,
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MaterialTheme.customColors.primaryContainer,
-                    contentColor = MaterialTheme.customColors.onPrimaryContainer,
-                ),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp,
-                    pressedElevation = 0.dp,
-                    disabledElevation = 0.dp,
-                ),
                 onClick = licensesClicked,
             ) {
                 Icon(

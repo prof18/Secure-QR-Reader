@@ -1,0 +1,36 @@
+Scan any QR code in seconds — without handing your data to strangers. QR Reader Secure is a fast, private QR code scanner and reader built around one idea: what you scan is nobody's business but yours.
+
+Most QR scanner apps demand strange permissions, bury you in ads, and quietly ship your scans off to trackers. This one doesn't. There are no ads, no trackers, and no analytics. The only permission it asks for is your camera — because that's the only one a QR reader actually needs. Everything happens on your device.
+
+✨ Why QR Reader Secure
+
+• Truly private: no ads, no trackers, no data collection. Your scans never leave your phone.
+• One permission, that's it: just the camera. No contacts, no location, no storage grabs.
+• 100% on-device: every QR code is decoded offline, right on your phone.
+• Open source: the full code is public on GitHub, so anyone can verify exactly what the app does.
+• Fast, automatic scanning: point the camera and the QR code is recognized instantly — no shutter button.
+
+📷 A QR scanner that respects you
+
+• Live viewfinder with a clear frame so you always know where to aim.
+• Built-in flashlight for scanning in low light.
+• Clean, distraction-free design — no popups, no upsells, no clutter.
+
+🔗 Smart, content-aware results
+
+QR Reader Secure understands what you scanned and shows the right action for it:
+
+• Links: see the real website name on its own line before you open it — an easy way to spot disguised or phishing links.
+• Wi-Fi: read the network name and password, then connect in a tap.
+• Contacts: preview the details and add them straight to your address book.
+• Text: copy or share any plain-text code instantly.
+
+You can always copy or share the result, then scan another code right away.
+
+🔒 Privacy you can actually trust
+
+Because the app is open source and stores nothing, there's no hidden agenda. No account, no sign-up, no cloud. Scan a menu, a ticket, a Wi-Fi code, or a business card — and know it stays between you and your phone.
+
+Download QR Reader Secure today for a QR code scanner and barcode reader that's private, secure, and ad-free.
+
+Open source code: https://github.com/prof18/Secure-QR-Reader

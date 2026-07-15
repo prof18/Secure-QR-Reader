@@ -6,7 +6,7 @@
 QR Reader Secure is a simple QR Reader designed and developed with a focus on privacy.
 
 <div align="center">
-  <img src="store_assets/banner_eng.png">
+  <img src="app/src/main/play/listings/en-US/graphics/feature-graphic/1.png">
 </div>
 
 I decided to develop it after a failed search for a simple and secure reader for my parents.

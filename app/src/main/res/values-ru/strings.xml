@@ -25,6 +25,15 @@
     <string name="settings_about">О приложении</string>
     <string name="show_on_github">Показать на GitHub</string>
     <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="support_the_project">Поддержать проект</string>
+    <string name="support_thank_you_title">Спасибо!</string>
+    <string name="support_thank_you_message">Спасибо за поддержку QR Reader Secure. Ваше пожертвование помогает сохранять приложение приватным, бесплатным и с открытым исходным кодом.</string>
+    <string name="support_thank_you_confirm">Готово</string>
+    <string name="support_headline">Помогите QR Reader Secure оставаться независимым</string>
+    <string name="support_description">Приложение бесплатно, приватно и без рекламы. Разовая поддержка помогает развивать его дальше.</string>
+    <string name="support_thank_you">Спасибо за поддержку проекта!</string>
+    <string name="support_unavailable">Поддержка сейчас недоступна. Попробуйте позже.</string>
+    <string name="support_error">Не удалось завершить покупку. Попробуйте ещё раз.</string>
     <string name="scan_instructions">Просто поместите QR-код в рамку и он будет распознан автоматически</string>
     <string name="scan_privacy_chip">Ничего не покидает ваш телефон</string>
     <string name="request_permission">Запросить разрешение</string>

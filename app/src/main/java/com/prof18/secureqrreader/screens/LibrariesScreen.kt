@@ -29,7 +29,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.ui.compose.LibrariesContainer
+import com.prof18.secureqrreader.R
 import com.prof18.secureqrreader.components.LibrariesScreenScaffold
 import com.prof18.secureqrreader.style.SecureQrReaderTheme
 
@@ -54,8 +56,18 @@ fun LibrariesScreen(
                     .padding(padding)
             ) {
                 LibrariesContainer(
-                    Modifier.fillMaxSize()
-                        .navigationBarsPadding()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .navigationBarsPadding(),
+                    librariesBlock = { context ->
+                        Libs.Builder()
+                            .withJson(
+                                context.resources.openRawResource(R.raw.aboutlibraries)
+                                    .bufferedReader()
+                                    .use { it.readText() },
+                            )
+                            .build()
+                    },
                 )
             }
         }
