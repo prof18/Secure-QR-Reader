@@ -8,10 +8,6 @@ I decided to develop it after a failed search for a simple and secure reader for
 
 The app is very simple (the aim is to scan a code and open the link, only this!) and it does not require sneaky, strange and useless permissions just for the sake of stealing your data. There aren't ads, trackers of any sort and what do you scan remains on your phone. The only requested permission is for the camera.
 
-<div align="center">
-  <img src="store_assets/banner_screen.png">
-</div>
-
 ## Download 📦
 
 You can download QR Reader Secure on the Play Store!
