@@ -23,7 +23,6 @@ To add a new translation just add a pull request with a new `strings.xml` file i
 
 ## Acknowledgments 🌸
 
-- All the vectors and the illustrations used in the app are provided by [freepik.com](https://it.freepik.com/foto-vettori-gratuito/design)
 - Thanks to [@giansegato](https://giansegato.com/) and [Fed](https://twitter.com/fedcnvs) for design reviews and many other advices.
 
 ## License 📄
