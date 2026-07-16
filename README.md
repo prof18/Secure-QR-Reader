@@ -1,8 +1,3 @@
-<div align="center">
-  <img style="border-radius: 50%" src="store_assets/ic_launcher-playstore.png" width="100px">
-  <h1>QR Reader Secure</h1>
-</div>
-
 QR Reader Secure is a simple QR Reader designed and developed with a focus on privacy.
 
 <div align="center">
