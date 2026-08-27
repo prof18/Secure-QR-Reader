@@ -18,6 +18,7 @@ package com.prof18.secureqrreader.screens
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
@@ -132,7 +134,7 @@ fun ResultScreen(
 }
 
 @Composable
-private fun ResultPortraitView(
+internal fun ResultPortraitView(
     scaffoldPadding: PaddingValues,
     content: QrContent,
     onOpenButtonClick: (String) -> Unit,
@@ -150,25 +152,32 @@ private fun ResultPortraitView(
             .padding(horizontal = Margins.medium)
             .padding(top = Margins.small, bottom = Margins.regular),
     ) {
-        TypeBadge(content)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+        ) {
+            TypeBadge(content)
+            Spacer(modifier = Modifier.height(Margins.regular))
+            ResultContentCard(content)
+            Spacer(modifier = Modifier.height(Margins.medium))
+            ResultActions(
+                content = content,
+                onOpenButtonClick = onOpenButtonClick,
+                onConnectButtonClick = onConnectButtonClick,
+                onAddContactButtonClick = onAddContactButtonClick,
+                onCopyButtonClick = onCopyButtonClick,
+                onShareButtonClick = onShareButtonClick,
+            )
+        }
         Spacer(modifier = Modifier.height(Margins.regular))
-        ResultContentCard(content)
-        Spacer(modifier = Modifier.height(Margins.medium))
-        ResultActions(
-            content = content,
-            onOpenButtonClick = onOpenButtonClick,
-            onConnectButtonClick = onConnectButtonClick,
-            onAddContactButtonClick = onAddContactButtonClick,
-            onCopyButtonClick = onCopyButtonClick,
-            onShareButtonClick = onShareButtonClick,
-        )
-        Spacer(modifier = Modifier.weight(1f))
         ScanAnotherButton(onClick = onScanAnotherButtonClick)
     }
 }
 
 @Composable
-private fun ResultLandscapeView(
+internal fun ResultLandscapeView(
     scaffoldPadding: PaddingValues,
     content: QrContent,
     onOpenButtonClick: (String) -> Unit,
@@ -190,7 +199,8 @@ private fun ResultLandscapeView(
         Column(
             modifier = Modifier
                 .weight(1.1f)
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
         ) {
             TypeBadge(content)
@@ -201,7 +211,8 @@ private fun ResultLandscapeView(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
         ) {
             ResultActions(

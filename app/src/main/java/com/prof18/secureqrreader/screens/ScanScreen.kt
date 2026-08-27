@@ -29,6 +29,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +42,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -588,38 +591,44 @@ private fun ViewfinderOverlay(
 private fun PermissionDeniedView(onAboutClick: () -> Unit, context: Context) {
     ScanScreenWithoutCameraScaffold(
         onAboutClick = onAboutClick
+    ) { scaffoldPadding ->
+        PermissionDeniedContent(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(scaffoldPadding)
+                .navigationBarsPadding(),
+            onRequestPermission = { goToAppSettings(context) },
+        )
+    }
+}
+
+@Composable
+internal fun PermissionDeniedContent(
+    modifier: Modifier = Modifier,
+    onRequestPermission: () -> Unit,
+) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = Margins.big, vertical = Margins.medium),
+        verticalArrangement = Arrangement.Center,
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+        Text(
+            text = stringResource(id = string.permission_required_dialog_title),
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.h1.copy(fontSize = 28.sp),
+        )
+        Text(
+            modifier = Modifier.padding(top = Margins.medium),
+            text = stringResource(id = string.camera_permission_explanation),
+            style = MaterialTheme.typography.body1,
+            color = MaterialTheme.colors.onBackground,
+        )
+        Button(
+            modifier = Modifier.padding(top = Margins.regular),
+            onClick = onRequestPermission,
         ) {
-            Column {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = Margins.big),
-                    text = stringResource(id = string.permission_required_dialog_title),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.h1.copy(fontSize = 28.sp),
-                )
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = Margins.big)
-                        .padding(top = Margins.medium),
-                    text = stringResource(id = string.camera_permission_explanation),
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onBackground,
-                )
-                Button(
-                    modifier = Modifier
-                        .padding(horizontal = Margins.big)
-                        .padding(top = Margins.regular),
-                    onClick = {
-                        goToAppSettings(context)
-                    }
-                ) {
-                    Text(stringResource(string.request_permission))
-                }
-            }
+            Text(stringResource(string.request_permission))
         }
     }
 }

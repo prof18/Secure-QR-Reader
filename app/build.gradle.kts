@@ -46,6 +46,7 @@ android {
         targetSdk = 36
         versionCode = 20010
         versionName = "2.0.9"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -106,5 +107,9 @@ dependencies {
     implementation(libs.revenuecat.purchases)
     implementation(libs.revenuecat.purchases.ui)
     testImplementation(libs.kotlin.test.junit)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.runner)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
     baselineProfile(project(":baseline-profile"))
 }
