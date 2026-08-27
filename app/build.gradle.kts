@@ -44,8 +44,8 @@ android {
         applicationId = "com.prof18.secureqrreader"
         minSdk = 24
         targetSdk = 36
-        versionCode = 20010
-        versionName = "2.0.9"
+        versionCode = 20011
+        versionName = "2.0.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
